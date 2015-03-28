@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class ChannelsHandler {
     private final Map<ChannelName, JChannel> channels = new HashMap<>();
+    private JChannel currentChannel;
     private String nickName;
 
     public ChannelsHandler(String nickName) {
@@ -22,5 +23,21 @@ public class ChannelsHandler {
 
     public String getNickName() {
         return nickName;
+    }
+
+    public void switchChannel(ChannelName channelName) {
+        JChannel channel = channels.get(channelName);
+
+        if (channel == null) {
+            System.out.println("No such channel! Staying on last channel");
+            return;
+        }
+
+
+        this.currentChannel = channel;
+    }
+
+    public JChannel currentChannel() {
+        return this.currentChannel;
     }
 }

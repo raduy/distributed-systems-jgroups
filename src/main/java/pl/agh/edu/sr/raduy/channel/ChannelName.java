@@ -8,20 +8,20 @@ import java.net.UnknownHostException;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class ChannelName {
-    private final String channelName;
+    private final InetAddress channelName;
 
     public ChannelName(String channelName) throws MalformedMulticastAddressException {
-        validateChannelName(channelName);
-        this.channelName = channelName;
+        this.channelName = validateChannelName(channelName);
     }
 
-    private void validateChannelName(String channelName) {
+    private InetAddress validateChannelName(String channelName) {
         try {
             InetAddress address = Inet4Address.getByName(channelName);
 
             if (!address.isMulticastAddress()) {
                 throw new MalformedMulticastAddressException(channelName);
             }
+            return address;
         } catch (UnknownHostException e) {
             throw new MalformedMulticastAddressException(channelName);
         }
@@ -29,6 +29,6 @@ public class ChannelName {
 
     @Override
     public String toString() {
-        return channelName;
+        return channelName.getCanonicalHostName();
     }
 }
