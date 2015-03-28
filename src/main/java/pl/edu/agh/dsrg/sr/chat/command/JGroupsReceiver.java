@@ -1,4 +1,4 @@
-package pl.agh.edu.sr.raduy.command;
+package pl.edu.agh.dsrg.sr.chat.command;
 
 import org.jgroups.Address;
 import org.jgroups.Message;

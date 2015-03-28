@@ -1,9 +1,9 @@
-package pl.agh.edu.sr.raduy.config;
+package pl.edu.agh.dsrg.sr.chat.config;
 
 import org.jgroups.protocols.*;
 import org.jgroups.protocols.pbcast.*;
 import org.jgroups.stack.ProtocolStack;
-import pl.agh.edu.sr.raduy.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
 
 import java.net.InetAddress;
 

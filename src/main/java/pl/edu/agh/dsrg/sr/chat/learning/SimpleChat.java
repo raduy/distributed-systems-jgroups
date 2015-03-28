@@ -1,4 +1,4 @@
-package pl.agh.edu.sr.raduy.learning;
+package pl.edu.agh.dsrg.sr.chat.learning;
 
 import org.jgroups.*;
 import org.jgroups.protocols.*;

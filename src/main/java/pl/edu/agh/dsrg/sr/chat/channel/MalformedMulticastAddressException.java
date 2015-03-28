@@ -1,4 +1,4 @@
-package pl.agh.edu.sr.raduy.channel;
+package pl.edu.agh.dsrg.sr.chat.channel;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>

@@ -1,6 +1,6 @@
-package pl.agh.edu.sr.raduy.command;
+package pl.edu.agh.dsrg.sr.chat.command;
 
-import pl.agh.edu.sr.raduy.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
 
 import java.util.HashMap;
 import java.util.Map;

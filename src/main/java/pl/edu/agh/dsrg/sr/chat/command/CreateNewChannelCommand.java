@@ -1,11 +1,11 @@
-package pl.agh.edu.sr.raduy.command;
+package pl.edu.agh.dsrg.sr.chat.command;
 
 import org.jgroups.JChannel;
 import org.jgroups.stack.ProtocolStack;
-import pl.agh.edu.sr.raduy.channel.ChannelName;
-import pl.agh.edu.sr.raduy.channel.ChannelsHandler;
-import pl.agh.edu.sr.raduy.channel.MalformedMulticastAddressException;
-import pl.agh.edu.sr.raduy.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.channel.MalformedMulticastAddressException;
+import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 
 import java.util.Scanner;
 

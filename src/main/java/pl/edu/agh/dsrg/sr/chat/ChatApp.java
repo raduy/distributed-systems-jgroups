@@ -1,10 +1,10 @@
-package pl.agh.edu.sr.raduy;
+package pl.edu.agh.dsrg.sr.chat;
 
 import org.jgroups.Address;
 import org.jgroups.JChannel;
-import pl.agh.edu.sr.raduy.channel.ChannelsHandler;
-import pl.agh.edu.sr.raduy.command.CommandRouter;
-import pl.agh.edu.sr.raduy.command.ICommand;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
+import pl.edu.agh.dsrg.sr.chat.command.ICommand;
 
 import java.util.Scanner;
 

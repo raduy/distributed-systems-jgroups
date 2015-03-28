@@ -1,4 +1,4 @@
-package pl.agh.edu.sr.raduy.channel;
+package pl.edu.agh.dsrg.sr.chat.channel;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
