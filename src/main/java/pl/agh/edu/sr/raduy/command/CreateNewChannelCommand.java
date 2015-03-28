@@ -50,7 +50,7 @@ public class CreateNewChannelCommand implements ICommand {
 
             ProtocolStack stack = new ProtocolStack();
             channel.setProtocolStack(stack);
-            ChatConfig.buildProtocolStack(stack);
+            ChatConfig.buildProtocolStack(stack, channelName);
 
             channel.setReceiver(new JGroupsReceiver());
             channel.connect(channelName.toString());

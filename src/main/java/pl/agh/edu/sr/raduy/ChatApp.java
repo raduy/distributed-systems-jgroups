@@ -78,8 +78,8 @@ public class ChatApp {
     }
 
     private static void printChatIntro() {
-        System.out.println("\t\t\t####################################");
-        System.out.println("\t\t\t#   Welcome to raduy's chatMode app!   #");
-        System.out.println("\t\t\t####################################");
+        System.out.println("\t\t\t######################################");
+        System.out.println("\t\t\t#  Welcome to raduy's chatMode app!  #");
+        System.out.println("\t\t\t######################################");
     }
 }

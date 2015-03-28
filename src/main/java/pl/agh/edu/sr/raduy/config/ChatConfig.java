@@ -3,6 +3,7 @@ package pl.agh.edu.sr.raduy.config;
 import org.jgroups.protocols.*;
 import org.jgroups.protocols.pbcast.*;
 import org.jgroups.stack.ProtocolStack;
+import pl.agh.edu.sr.raduy.channel.ChannelName;
 
 import java.net.InetAddress;
 
@@ -11,9 +12,9 @@ import java.net.InetAddress;
  */
 public class ChatConfig {
 
-    public static ProtocolStack buildProtocolStack(ProtocolStack stack) {
+    public static ProtocolStack buildProtocolStack(ProtocolStack stack, ChannelName channelName) {
         try {
-            stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName("230.0.0.36")))
+            stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName(channelName.toString())))
                     .addProtocol(new PING())
                     .addProtocol(new MERGE2())
                     .addProtocol(new FD_SOCK())
