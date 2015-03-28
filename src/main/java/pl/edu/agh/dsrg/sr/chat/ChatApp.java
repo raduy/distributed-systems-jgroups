@@ -5,8 +5,11 @@ import org.jgroups.JChannel;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
 import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
 import pl.edu.agh.dsrg.sr.chat.command.ICommand;
+import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 import java.util.Scanner;
+
+import static pl.edu.agh.dsrg.sr.chat.config.ChatConfig.promptFormat;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
@@ -47,7 +50,7 @@ public class ChatApp {
                 nickName = channelsHandler.getNickName();
                 int channelSize = channel.getView().getMembers().size();
 
-                System.out.printf("<%s @%s(online: %d users)>", nickName, channelName, channelSize);
+                System.out.printf(promptFormat(), nickName, channelName, channelSize);
             } else {
                 System.out.println("No channel exist! Join some or create new one. Hit --help for more info");
             }
@@ -64,7 +67,11 @@ public class ChatApp {
 
             if (channel != null) {
                 try {
-                    channel.send(EVERYBODY, userInput);
+                    ChatOperationProtos.ChatMessage message = ChatOperationProtos.ChatMessage.newBuilder()
+                            .setMessage(userInput)
+                            .build();
+
+                    channel.send(EVERYBODY, message.toByteArray());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -78,8 +85,8 @@ public class ChatApp {
     }
 
     private static void printChatIntro() {
-        System.out.println("\t\t\t######################################");
-        System.out.println("\t\t\t#  Welcome to raduy's chatMode app!  #");
-        System.out.println("\t\t\t######################################");
+        System.out.println("\t\t\t##################################");
+        System.out.println("\t\t\t#  Welcome to raduy's chat app!  #");
+        System.out.println("\t\t\t##################################");
     }
 }

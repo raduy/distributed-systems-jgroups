@@ -37,4 +37,9 @@ public class ChatConfig {
 
         return stack;
     }
+
+    public static String promptFormat() {
+        //<%user @%channelName(online: %usersInThisChannelCount users)>
+        return "<%s @%s(online: %d users)>";
+    }
 }
