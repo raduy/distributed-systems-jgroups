@@ -5,6 +5,7 @@ import org.jgroups.JChannel;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
 import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
 import pl.edu.agh.dsrg.sr.chat.command.ICommand;
+import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import static pl.edu.agh.dsrg.sr.chat.config.ChatConfig.promptFormat;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class ChatApp {
-    private final static Address EVERYBODY = null; /* null means everybody for JGroups ~_~ */
+    private final static Address EVERYBODY = ChatConfig.EVERYBODY;
 
     private static ChannelsHandler channelsHandler;
     private static CommandRouter router;
