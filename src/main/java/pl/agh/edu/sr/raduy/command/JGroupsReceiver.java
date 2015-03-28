@@ -12,6 +12,7 @@ public class JGroupsReceiver extends ReceiverAdapter {
 
     public void viewAccepted(View new_view) {
 //        view[0] = new_view;
+        System.out.println("View changed! ");
         System.out.println("view: " + new_view);
     }
 

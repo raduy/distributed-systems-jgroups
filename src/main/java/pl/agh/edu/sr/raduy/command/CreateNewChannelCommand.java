@@ -2,7 +2,6 @@ package pl.agh.edu.sr.raduy.command;
 
 import org.jgroups.JChannel;
 import org.jgroups.stack.ProtocolStack;
-import pl.agh.edu.sr.raduy.ChatApp;
 import pl.agh.edu.sr.raduy.channel.ChannelName;
 import pl.agh.edu.sr.raduy.channel.ChannelsHandler;
 import pl.agh.edu.sr.raduy.channel.MalformedMulticastAddressException;
@@ -15,7 +14,8 @@ import java.util.Scanner;
  */
 public class CreateNewChannelCommand implements ICommand {
     public static final String INVOCATION_PREFIX = "-n";
-    public static final String DESCRIPTION = "Create new channel: -n <channelName> (channelName must be a multicast address)";
+    public static final String USAGE = "-n <channelName>";
+    public static final String DESCRIPTION = "Creates new channel (channelName must be a multicast address)";
 
     private ChannelName channelName;
     private ChannelsHandler channelsHandler;
@@ -46,18 +46,16 @@ public class CreateNewChannelCommand implements ICommand {
     @Override
     public void execute() {
         try {
-            JChannel ch = new JChannel(false);
+            JChannel channel = new JChannel(false);
 
             ProtocolStack stack = new ProtocolStack();
-            ch.setProtocolStack(stack);
+            channel.setProtocolStack(stack);
             ChatConfig.buildProtocolStack(stack);
 
-            ch.setReceiver(new JGroupsReceiver());
-            ch.connect(channelName.toString());
+            channel.setReceiver(new JGroupsReceiver());
+            channel.connect(channelName.toString());
 
-            channelsHandler.registerNewChannel(channelName, ch);
-            channelsHandler.switchChannel(channelName);
-            ChatApp.chatMode();
+            channelsHandler.registerNewChannel(channelName, channel);
 
         } catch (Exception e) {
             e.printStackTrace();

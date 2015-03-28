@@ -18,7 +18,12 @@ public class ChannelsHandler {
     }
 
     public void registerNewChannel(ChannelName name, JChannel channel) {
-        channels.put(name, channel);
+        if (channels.get(name) != null) {
+            System.out.printf("Channel %s already exist! Joining...\n", name);
+        } else {
+            channels.put(name, channel);
+        }
+        switchChannel(name);
     }
 
     public String getNickName() {

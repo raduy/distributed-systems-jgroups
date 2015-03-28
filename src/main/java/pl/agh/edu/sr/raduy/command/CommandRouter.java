@@ -17,7 +17,8 @@ public class CommandRouter {
     }
 
     static {
-        commands.put(CreateNewChannelCommand.INVOCATION_PREFIX, CreateNewChannelCommand.DESCRIPTION);
+        commands.put(CreateNewChannelCommand.USAGE, CreateNewChannelCommand.DESCRIPTION);
+        commands.put(SwitchToChannel.USAGE, SwitchToChannel.DESCRIPTION);
     }
 
     public static void printAvailableCommands() {
@@ -29,6 +30,10 @@ public class CommandRouter {
     public ICommand matchCommand(String command) {
         if (command.startsWith(CreateNewChannelCommand.INVOCATION_PREFIX)) {
             return new CreateNewChannelCommand(command, channelsHandler);
+        }
+
+        if (command.startsWith(SwitchToChannel.INVOCATION_PREFIX)) {
+            return new SwitchToChannel(command, channelsHandler);
         }
 
         return new PrintHelpCommand();
