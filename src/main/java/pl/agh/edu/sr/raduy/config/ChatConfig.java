@@ -1,9 +1,7 @@
 package pl.agh.edu.sr.raduy.config;
 
 import org.jgroups.protocols.*;
-import org.jgroups.protocols.pbcast.GMS;
-import org.jgroups.protocols.pbcast.NAKACK;
-import org.jgroups.protocols.pbcast.STABLE;
+import org.jgroups.protocols.pbcast.*;
 import org.jgroups.stack.ProtocolStack;
 
 import java.net.InetAddress;
@@ -15,13 +13,11 @@ public class ChatConfig {
 
     public static ProtocolStack buildProtocolStack(ProtocolStack stack) {
         try {
-            stack.addProtocol(new UDP().setValue("bind_addr",
-                    InetAddress.getByName("192.168.0.5")))
+            stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName("230.0.0.36")))
                     .addProtocol(new PING())
-                    .addProtocol(new MERGE3())
+                    .addProtocol(new MERGE2())
                     .addProtocol(new FD_SOCK())
-                    .addProtocol(new FD_ALL().setValue("timeout", 12000)
-                            .setValue("interval", 3000))
+                    .addProtocol(new FD_ALL().setValue("timeout", 12000).setValue("interval", 3000))
                     .addProtocol(new VERIFY_SUSPECT())
                     .addProtocol(new BARRIER())
                     .addProtocol(new NAKACK())
@@ -30,7 +26,9 @@ public class ChatConfig {
                     .addProtocol(new GMS())
                     .addProtocol(new UFC())
                     .addProtocol(new MFC())
-                    .addProtocol(new FRAG2());
+                    .addProtocol(new FRAG2())
+                    .addProtocol(new STATE_TRANSFER())
+                    .addProtocol(new FLUSH());
             stack.init();
         } catch (Exception e) {
             System.err.printf("Error creating protocol stack! Cause: %s", e);
