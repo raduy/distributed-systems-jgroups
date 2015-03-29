@@ -6,8 +6,13 @@ import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.channel.ChatChannel;
 import pl.edu.agh.dsrg.sr.chat.channel.User;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
@@ -17,6 +22,42 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
 
     public ManagementChannelReceiver(ChannelsHandler channelsHandler) {
         this.channelsHandler = channelsHandler;
+    }
+
+    @Override
+    public void getState(OutputStream output) throws Exception {
+        ChatOperationProtos.ChatState.Builder stateBuilder = ChatOperationProtos.ChatState.newBuilder();
+
+        for (ChatChannel chatChannel : channelsHandler) {
+            for (User user : chatChannel.getUsers()) {
+                ChatOperationProtos.ChatAction action = ChatOperationProtos.ChatAction.newBuilder()
+                        .setAction(ChatOperationProtos.ChatAction.ActionType.JOIN)
+                        .setChannel(chatChannel.getChannelRawName())
+                        .setNickname(user.getNickname())
+                        .build();
+
+                stateBuilder.addState(action);
+            }
+        }
+        output.write(stateBuilder.build().toByteArray());
+
+        System.out.println("getState");
+    }
+
+    @Override
+    public void setState(InputStream input) throws Exception {
+        ChatOperationProtos.ChatState chatState = ChatOperationProtos.ChatState.parseFrom(input);
+
+        if (chatState == null) {
+            return;
+        }
+
+        List<ChatOperationProtos.ChatAction> actions = chatState.getStateList();
+        for (ChatOperationProtos.ChatAction action : actions) {
+            this.channelsHandler.addUser(new User(action.getNickname()), action.getChannel());
+        }
+
+        System.out.println("setState");
     }
 
     @Override

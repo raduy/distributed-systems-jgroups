@@ -7,6 +7,7 @@ import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 /**
@@ -14,10 +15,12 @@ import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
  */
 public class ChatChannelReceiver extends ReceiverAdapter {
 
+    private final String nickName;
     private final ChannelName channelName;
     private final ChannelsHandler channelsHandler;
 
-    public ChatChannelReceiver(ChannelName channelName, ChannelsHandler channelsHandler) {
+    public ChatChannelReceiver(String nickName, ChannelName channelName, ChannelsHandler channelsHandler) {
+        this.nickName = nickName;
         this.channelName = channelName;
         this.channelsHandler = channelsHandler;
     }
@@ -43,7 +46,7 @@ public class ChatChannelReceiver extends ReceiverAdapter {
 //                    .size();
 
 //            System.out.printf(ChatConfig.promptFormat() + "%s", nickname, channelName, connectedUsersCount, message);
-            System.out.println(message + srcAddress);
+            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", srcAddress, channelName, 42, message);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

@@ -60,4 +60,26 @@ public class ChatChannel {
             e.printStackTrace();
         }
     }
+
+    public boolean amIConnected() {
+        return this.getJChannel().isConnected();
+    }
+
+    public String getChannelRawName() {
+        return channelRawName;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buffer = new StringBuilder();
+
+        buffer.append(channelRawName)
+                .append(format(" (%s)\n", amIConnected() ? "connected" : "disconnected"));
+
+        for (User user : users) {
+            buffer.append(format("\t\t%s with srcAddress: %s \n", user.getNickname(), user.getSrcAddress()));
+        }
+
+        return buffer.toString();
+    }
 }

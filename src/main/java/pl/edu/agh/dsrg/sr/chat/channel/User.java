@@ -6,12 +6,15 @@ import org.jgroups.Address;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class User {
-    private final Address srcAddress;
+    private Address srcAddress;
     private final String nickname;
 
     public User(Address srcAddress, String nickname) {
-
         this.srcAddress = srcAddress;
+        this.nickname = nickname;
+    }
+
+    public User(String nickname) {
         this.nickname = nickname;
     }
 

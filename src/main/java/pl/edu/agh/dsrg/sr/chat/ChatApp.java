@@ -39,7 +39,16 @@ public class ChatApp {
 
     private static String readNickName(Scanner scanner) {
         System.out.println("What's your name?");
-        return scanner.nextLine();
+        String nickName;
+
+        while(true) {
+            nickName = scanner.nextLine();
+            if (nickName.isEmpty()) {
+                System.out.println("You really don't have a name?");
+                continue;
+            }
+            return nickName;
+        }
     }
 
     public static void chatMode() {

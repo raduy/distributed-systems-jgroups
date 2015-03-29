@@ -10,12 +10,13 @@ import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
-public class ChannelsHandler {
+public class ChannelsHandler implements Iterable<ChatChannel> {
     private static final String MANAGEMENT_CHANNEL_NAME = ChatConfig.MANAGEMENT_CHANNEL_NAME;
     private static final Address EVERYBODY = ChatConfig.EVERYBODY;
 
@@ -36,9 +37,11 @@ public class ChannelsHandler {
         channel.setProtocolStack(stack);
         ChatConfig.buildProtocolStack(stack);
 
-        channel.setReceiver(new ManagementChannelReceiver(this));
+        ManagementChannelReceiver managementChannelReceiver = new ManagementChannelReceiver(this);
+        channel.setReceiver(managementChannelReceiver);
         try {
             channel.connect(MANAGEMENT_CHANNEL_NAME);
+            channel.getState(null, 1000);
         } catch (Exception e) {
             System.out.println("Cannot connect to management channel");
             e.printStackTrace();
@@ -94,20 +97,26 @@ public class ChannelsHandler {
 
         ChatChannel chatChannel = channels.get(channelName);
         if (chatChannel == null) {
-            JChannel jChannel = new JChannel(false);
-
-            ProtocolStack stack = new ProtocolStack();
-            jChannel.setProtocolStack(stack);
-            ChatConfig.buildProtocolStack(stack, channelName);
-
-            jChannel.setReceiver(new ChatChannelReceiver(channelName, this));
-            chatChannel = new ChatChannel(channelRawName, jChannel);
-            channels.put(channelName, chatChannel);
+            chatChannel = addChannelToState(user.getNickname(), channelRawName);
         }
 
         chatChannel.connectUser(user);
 
         System.out.println("User added to state" + user + channelRawName);
+    }
+
+    public ChatChannel addChannelToState(String nickName, String channelRawName) {
+        JChannel jChannel = new JChannel(false);
+
+        ProtocolStack stack = new ProtocolStack();
+        jChannel.setProtocolStack(stack);
+        ChannelName channelName = new ChannelName(channelRawName);
+        ChatConfig.buildProtocolStack(stack, channelName);
+
+        jChannel.setReceiver(new ChatChannelReceiver(nickName, channelName, this));
+        ChatChannel chatChannel = new ChatChannel(channelRawName, jChannel);
+        channels.put(channelName, chatChannel);
+        return chatChannel;
     }
 
     public void removeUser(User user, String channel) {
@@ -125,5 +134,10 @@ public class ChannelsHandler {
         User messageSender = chatChannel.findUser(srcAddress);
 
         return new MessageContext(messageSender, chatChannel);
+    }
+
+    @Override
+    public Iterator<ChatChannel> iterator() {
+        return this.channels.values().iterator();
     }
 }
