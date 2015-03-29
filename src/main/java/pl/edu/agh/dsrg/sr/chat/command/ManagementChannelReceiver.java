@@ -1,10 +1,12 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.jgroups.Address;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
 import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.channel.User;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 /**
@@ -17,23 +19,29 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
         this.channelsHandler = channelsHandler;
     }
 
-    public void viewAccepted(View new_view) {
-//        view[0] = new_view;
-        System.out.printf("\nView changed! \n");
-        System.out.println("view: " + new_view);
+    @Override
+    public void viewAccepted(View newView) {
+        System.out.println("<Logger>: View changed: " + newView);
     }
 
+    @Override
     public void receive(Message msg) {
         ChatOperationProtos.ChatAction chatAction;
+        Address srcAddress = msg.getSrc();
         try {
             chatAction = ChatOperationProtos.ChatAction.parseFrom(msg.getBuffer());
 
-            switch(chatAction.getAction()) {
-                case LEAVE:
-                    System.out.printf("Management: User %s left %s channel\n", chatAction.getNickname(), chatAction.getChannel());
+            User user = new User(srcAddress, chatAction.getNickname());
+            String channelName = chatAction.getChannel();
+
+            switch (chatAction.getAction()) {
+                case JOIN:
+                    channelsHandler.addUser(user, channelName);
+                    System.out.printf("<Management channel> User %s joined %s channel\n", chatAction.getNickname(), channelName);
                     break;
-               case JOIN:
-                   System.out.printf("Management: User %s joined %s channel\n", chatAction.getNickname(), chatAction.getChannel());
+                case LEAVE:
+                    channelsHandler.removeUser(user, channelName);
+                    System.out.printf("<Management channel> User %s left %s channel\n", chatAction.getNickname(), channelName);
             }
 
         } catch (InvalidProtocolBufferException e) {

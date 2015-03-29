@@ -26,7 +26,11 @@ public class ChatApp {
         printChatIntro();
 
         String nickName = readNickName(scanner);
+        System.out.printf("Hello %s! \nLoading...\n", nickName);
+
         channelsHandler = new ChannelsHandler(nickName);
+
+        System.out.printf("Done! Here are your options:\n");
         router = new CommandRouter(channelsHandler);
 
         CommandRouter.printAvailableCommands();
@@ -35,25 +39,22 @@ public class ChatApp {
 
     private static String readNickName(Scanner scanner) {
         System.out.println("What's your name?");
-        String nickName = scanner.nextLine();
-        System.out.printf("Hello %s! \nHere are your options:\n", nickName);
-        return nickName;
+        return scanner.nextLine();
     }
 
     public static void chatMode() {
         while (!Thread.interrupted()) {
             JChannel channel = channelsHandler.currentChannel();
+            String nickName = channelsHandler.getNickName();
             String channelName;
-            String nickName;
 
             if (channel != null) {
                 channelName = channel.getClusterName();
-                nickName = channelsHandler.getNickName();
                 int channelSize = channel.getView().getMembers().size();
 
                 System.out.printf(promptFormat(), nickName, channelName, channelSize);
             } else {
-                System.out.println("No channel exist! Join some or create new one. Hit --help for more info");
+                System.out.printf(promptFormat(), nickName, "no channel! ", 0);
             }
 
             String userInput = scanner.nextLine();

@@ -1,9 +1,12 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.jgroups.Address;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 /**
@@ -11,17 +14,36 @@ import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
  */
 public class ChatChannelReceiver extends ReceiverAdapter {
 
-    public void viewAccepted(View new_view) {
-//        view[0] = new_view;
-        System.out.printf("\nView changed! \n");
-        System.out.println("view: " + new_view);
+    private final ChannelName channelName;
+    private final ChannelsHandler channelsHandler;
+
+    public ChatChannelReceiver(ChannelName channelName, ChannelsHandler channelsHandler) {
+        this.channelName = channelName;
+        this.channelsHandler = channelsHandler;
     }
 
+    @Override
+    public void viewAccepted(View newView) {
+        System.out.println("<Logger>: View changed: " + newView);
+    }
+
+    @Override
     public void receive(Message msg) {
         String message;
+        Address srcAddress = msg.getSrc();
         try {
             message = ChatOperationProtos.ChatMessage.parseFrom(msg.getBuffer()).getMessage();
-            System.out.println(message);
+
+//            MessageContext context = channelsHandler.messageContext(channelName, srcAddress);
+
+//            String nickname = context.getUser().getNickname();
+//            int connectedUsersCount = context.getChatChannel()
+//                    .getJChannel()
+//                    .getView()
+//                    .size();
+
+//            System.out.printf(ChatConfig.promptFormat() + "%s", nickname, channelName, connectedUsersCount, message);
+            System.out.println(message + srcAddress);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

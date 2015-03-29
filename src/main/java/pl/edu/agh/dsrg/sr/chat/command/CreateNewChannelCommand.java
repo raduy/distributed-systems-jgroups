@@ -46,16 +46,16 @@ public class CreateNewChannelCommand implements ICommand {
     @Override
     public void execute() {
         try {
-            JChannel channel = new JChannel(false);
+            JChannel jChannel = new JChannel(false);
 
             ProtocolStack stack = new ProtocolStack();
-            channel.setProtocolStack(stack);
+            jChannel.setProtocolStack(stack);
             ChatConfig.buildProtocolStack(stack, channelName);
 
-            channel.setReceiver(new ChatChannelReceiver());
-            channel.connect(channelName.toString());
+            jChannel.setReceiver(new ChatChannelReceiver(channelName, channelsHandler));
+            channelsHandler.registerNewChannel(channelName, jChannel);
 
-            channelsHandler.registerNewChannel(channelName, channel);
+            jChannel.connect(channelName.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
