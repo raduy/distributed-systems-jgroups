@@ -33,7 +33,7 @@ public class CommandRouter {
 
     public ICommand matchCommand(String cmd) {
         if (cmd.startsWith(CreateNewChannelCommand.INVOCATION_PREFIX)) {
-            return new CreateNewChannelCommand(cmd, channelsService);
+            return new CreateNewChannelCommand(cmd, channelsService, channelRepository);
         }
 
         if (cmd.startsWith(SwitchToChannelCommand.INVOCATION_PREFIX)) {

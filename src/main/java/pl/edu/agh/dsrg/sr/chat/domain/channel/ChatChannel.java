@@ -33,6 +33,11 @@ public class ChatChannel {
         return channelName.toString();
     }
 
+    public void updateUsers(Set<User> newView) {
+        this.users.clear();
+        this.users.addAll(newView);
+    }
+
     public void connectMe() {
         if (jChannel.isConnected()) {
             return;

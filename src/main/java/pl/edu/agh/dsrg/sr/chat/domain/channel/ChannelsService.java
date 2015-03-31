@@ -24,7 +24,7 @@ public class ChannelsService {
     public ChannelsService(String nickName, ChatChannelRepository channelRepository) {
         this.nickName = nickName;
         this.channelRepository = channelRepository;
-        this.channelFactory = new ChannelFactory(nickName);
+        this.channelFactory = new ChannelFactory(nickName, channelRepository);
     }
 
     public JChannel connectToManagementChannel() {

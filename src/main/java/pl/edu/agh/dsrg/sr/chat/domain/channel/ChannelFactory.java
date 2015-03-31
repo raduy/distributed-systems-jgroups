@@ -11,9 +11,11 @@ import pl.edu.agh.dsrg.sr.chat.receiver.ChatChannelReceiver;
 public class ChannelFactory {
 
     private final String nickName;
+    private final ChatChannelRepository channelRepository;
 
-    public ChannelFactory(String nickName) {
+    public ChannelFactory(String nickName, ChatChannelRepository channelRepository) {
         this.nickName = nickName;
+        this.channelRepository = channelRepository;
     }
 
     public ChatChannel create(ChannelName channelName) {
@@ -23,7 +25,7 @@ public class ChannelFactory {
         jChannel.setProtocolStack(stack);
         ChatConfig.buildProtocolStack(stack, channelName);
 
-        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName));
+        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName, channelRepository));
         return new ChatChannel(channelName, jChannel);
     }
 }

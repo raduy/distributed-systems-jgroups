@@ -6,6 +6,7 @@ import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 import pl.edu.agh.dsrg.sr.chat.receiver.ChatChannelReceiver;
 
 import java.util.Scanner;
@@ -20,9 +21,11 @@ class CreateNewChannelCommand implements ICommand {
 
     private ChannelName channelName;
     private final ChannelsService channelsService;
+    private final ChatChannelRepository channelRepository;
 
-    CreateNewChannelCommand(String command, ChannelsService channelsService) {
+    CreateNewChannelCommand(String command, ChannelsService channelsService, ChatChannelRepository channelRepository) {
         this.channelsService = channelsService;
+        this.channelRepository = channelRepository;
         this.channelName = parseChannelName(command);
     }
 
@@ -53,7 +56,7 @@ class CreateNewChannelCommand implements ICommand {
             jChannel.setProtocolStack(stack);
             ChatConfig.buildProtocolStack(stack, channelName);
 
-            jChannel.setReceiver(new ChatChannelReceiver(jChannel, channelsService.getNickName(), channelName));
+            jChannel.setReceiver(new ChatChannelReceiver(jChannel, channelsService.getNickName(), channelName, channelRepository));
             channelsService.registerNewChannel(channelName, jChannel);
 
             jChannel.setName(this.channelsService.getNickName());
