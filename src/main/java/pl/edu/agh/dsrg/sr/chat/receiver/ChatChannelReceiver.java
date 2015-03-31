@@ -2,7 +2,7 @@ package pl.edu.agh.dsrg.sr.chat.receiver;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.jgroups.*;
-import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.ChatApp;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
@@ -40,10 +40,17 @@ public class ChatChannelReceiver extends ReceiverAdapter {
             String nickName = jChannel.getName(srcAddress);
             int membersInChannelCount = jChannel.getView().size();
 
-            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", nickName, channelName, membersInChannelCount, message);
+            printMessage(message, nickName, membersInChannelCount);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
+    }
+
+    private void printMessage(String message, String nickName, int membersInChannelCount) {
+        System.out.println();
+        ChatApp.printContext(nickName, channelName.toString(), membersInChannelCount, message);
+        System.out.println();
+        ChatApp.printContext();
     }
 
     private boolean isMyMessage(Message msg) {
