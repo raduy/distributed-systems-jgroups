@@ -1,13 +1,8 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
 import org.jgroups.JChannel;
-import org.jgroups.stack.ProtocolStack;
-import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
-import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
-import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
-import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
-import pl.edu.agh.dsrg.sr.chat.receiver.ChatChannelReceiver;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.*;
 
 import java.util.Scanner;
 
@@ -19,13 +14,15 @@ class CreateNewChannelCommand implements ICommand {
     public static final String USAGE = "-n <channelName>";
     public static final String DESCRIPTION = "Creates new channel (channelName must be a multicast address)";
 
-    private ChannelName channelName;
+    private final ChannelName channelName;
     private final ChannelsService channelsService;
-    private final ChatChannelRepository channelRepository;
+    private final ChannelFactory channelFactory;
 
-    CreateNewChannelCommand(String command, ChannelsService channelsService, ChatChannelRepository channelRepository) {
+    CreateNewChannelCommand(String command,
+                            ChannelsService channelsService,
+                            ChannelFactory channelFactory) {
         this.channelsService = channelsService;
-        this.channelRepository = channelRepository;
+        this.channelFactory = channelFactory;
         this.channelName = parseChannelName(command);
     }
 
@@ -35,7 +32,7 @@ class CreateNewChannelCommand implements ICommand {
             try {
                 String[] split = command.split("\\s+");
                 String rawChannelName = split[1];
-                return channelName = new ChannelName(rawChannelName);
+                return new ChannelName(rawChannelName);
 
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Missing channel name! Try again");
@@ -50,18 +47,13 @@ class CreateNewChannelCommand implements ICommand {
     @Override
     public void execute() {
         try {
-            JChannel jChannel = new JChannel(false);
+            ChatChannel chatChannel = channelFactory.create(channelName);
 
-            ProtocolStack stack = new ProtocolStack();
-            jChannel.setProtocolStack(stack);
-            ChatConfig.buildProtocolStack(stack, channelName);
+            ChatChannel newChannel = channelsService.registerNewChannel(chatChannel);
+            JChannel jChannel = newChannel.getJChannel();
 
-            jChannel.setReceiver(new ChatChannelReceiver(jChannel, channelsService.getNickName(), channelName, channelRepository));
-            channelsService.registerNewChannel(channelName, jChannel);
-
-            jChannel.setName(this.channelsService.getNickName());
+            jChannel.setName(channelsService.getNickName());
             jChannel.connect(channelName.toString());
-
         } catch (Exception e) {
             e.printStackTrace();
         }

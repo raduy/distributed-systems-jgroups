@@ -21,10 +21,12 @@ public class ChannelsService {
     private JChannel managementChannel;
     private final ChannelFactory channelFactory;
 
-    public ChannelsService(String nickName, ChatChannelRepository channelRepository) {
+    public ChannelsService(String nickName,
+                           ChatChannelRepository channelRepository,
+                           ChannelFactory channelFactory) {
         this.nickName = nickName;
         this.channelRepository = channelRepository;
-        this.channelFactory = new ChannelFactory(nickName, channelRepository);
+        this.channelFactory = channelFactory;
     }
 
     public JChannel connectToManagementChannel() {
@@ -50,19 +52,24 @@ public class ChannelsService {
         return channel;
     }
 
-    public void registerNewChannel(ChannelName name, JChannel jChannel) {
-        ChatChannel channel = channelRepository.loadByName(name);
+    public ChatChannel registerNewChannel(ChatChannel chatChannel) {
+        ChannelName name = chatChannel.channelName();
+        ChatChannel alreadyExistingChannel = channelRepository.loadByName(name);
 
-        if (channel != null) {
+        if (alreadyExistingChannel != null) {
             System.out.printf("Channel %s already exist! Joining...\n", name);
-//            channel.connectMe();
-        } else {
-            ChatChannel chatChannel = new ChatChannel(name, jChannel);
-            channelRepository.add(chatChannel);
+            switchChannel(name);
+            if (!alreadyExistingChannel.amConnected()) {
+                sendJoinNotification(name);
+            }
+            return alreadyExistingChannel;
         }
-        switchChannel(name);
 
+        channelRepository.add(chatChannel);
+        switchChannel(name);
         sendJoinNotification(name);
+
+        return chatChannel;
     }
 
     private void sendJoinNotification(ChannelName name) {
@@ -78,22 +85,15 @@ public class ChannelsService {
         }
     }
 
-    public void switchChannel(ChannelName channelName) {
-        ChatChannel chatChannel = channelRepository.loadByName(channelName);
-
-        if (chatChannel == null) {
-            System.out.println("No such channel! Staying on last channel");
-            return;
-        }
-
-        this.currentChannel = chatChannel;
-    }
-
     public ChatChannel currentChannel() {
         return this.currentChannel;
     }
 
     public String getNickName() {
         return nickName;
+    }
+
+    public void switchChannel(ChannelName channelName) {
+        this.currentChannel = channelRepository.loadByName(channelName);
     }
 }

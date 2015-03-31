@@ -38,21 +38,7 @@ public class ChatChannel {
         this.users.addAll(newView);
     }
 
-    public void connectMe() {
-        if (jChannel.isConnected()) {
-            return;
-        }
-
-        try {
-            jChannel.setName("ppp");
-            jChannel.connect(channelName.toString());
-        } catch (Exception e) {
-            System.out.printf("Cannot connect to %s channel", channelName);
-            e.printStackTrace();
-        }
-    }
-
-    public boolean amIConnected() {
+    public boolean amConnected() {
         return this.getJChannel().isConnected();
     }
 
@@ -73,7 +59,7 @@ public class ChatChannel {
         StringBuilder buffer = new StringBuilder();
 
         buffer.append(channelName)
-                .append(format(" (%s)\n", amIConnected() ? "connected" : "disconnected"));
+                .append(format(" (%s)\n", amConnected() ? "connected" : "disconnected"));
 
         for (User user : users) {
             buffer.append(format("\t\t%s \n", user.getNickname()));

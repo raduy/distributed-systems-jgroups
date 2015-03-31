@@ -1,5 +1,6 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelFactory;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 
@@ -13,10 +14,14 @@ public class CommandRouter {
     private static final Map<String, String> commands = new HashMap<>();
     private final ChannelsService channelsService;
     private final ChatChannelRepository channelRepository;
+    private final ChannelFactory channelFactory;
 
-    public CommandRouter(ChannelsService channelsService, ChatChannelRepository channelRepository) {
+    public CommandRouter(ChannelsService channelsService,
+                         ChatChannelRepository channelRepository,
+                         ChannelFactory channelFactory) {
         this.channelsService = channelsService;
         this.channelRepository = channelRepository;
+        this.channelFactory = channelFactory;
     }
 
     static {
@@ -33,7 +38,7 @@ public class CommandRouter {
 
     public ICommand matchCommand(String cmd) {
         if (cmd.startsWith(CreateNewChannelCommand.INVOCATION_PREFIX)) {
-            return new CreateNewChannelCommand(cmd, channelsService, channelRepository);
+            return new CreateNewChannelCommand(cmd, channelsService, channelFactory);
         }
 
         if (cmd.startsWith(SwitchToChannelCommand.INVOCATION_PREFIX)) {

@@ -71,7 +71,7 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
 
     @Override
     public void viewAccepted(View newView) {
-        System.out.println("<Logger>: View changed: " + newView);
+        System.out.println("\r<Logger>: View changed: " + newView);
     }
 
     @Override
@@ -90,12 +90,12 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
             switch (chatAction.getAction()) {
                 case JOIN:
                     chatChannel.connectUser(user);
-                    System.out.printf("<Management channel> User %s joined %s channel\n",
+                    System.out.printf("\r<Management channel> User %s joined %s channel\n",
                             nickname, channelRawName);
                     break;
                 case LEAVE:
                     chatChannel.disconnectUser(user);
-                    System.out.printf("<Management channel> User %s left %s channel\n",
+                    System.out.printf("\r<Management channel> User %s left %s channel\n",
                             nickname, channelRawName);
             }
         } catch (InvalidProtocolBufferException e) {

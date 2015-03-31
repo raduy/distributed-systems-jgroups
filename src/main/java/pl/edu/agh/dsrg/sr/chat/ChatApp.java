@@ -5,6 +5,7 @@ import org.jgroups.View;
 import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
 import pl.edu.agh.dsrg.sr.chat.command.ICommand;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelFactory;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannel;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
@@ -44,11 +45,12 @@ public class ChatApp {
 
     private void initApp() {
         ChatChannelRepository channelRepository = new ChatChannelRepository();
-        channelsService = new ChannelsService(nickName, channelRepository);
+        ChannelFactory channelFactory = new ChannelFactory(nickName, channelRepository);
+        channelsService = new ChannelsService(nickName, channelRepository, channelFactory);
 
         channelsService.connectToManagementChannel();
         System.out.printf("Done! Here are your options:\n");
-        router = new CommandRouter(channelsService, channelRepository);
+        router = new CommandRouter(channelsService, channelRepository, channelFactory);
     }
 
     private static String readNickName(Scanner scanner) {
