@@ -3,8 +3,8 @@ package pl.edu.agh.dsrg.sr.chat.domain.channel;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.stack.ProtocolStack;
-import pl.edu.agh.dsrg.sr.chat.command.ChatChannelReceiver;
-import pl.edu.agh.dsrg.sr.chat.command.ManagementChannelReceiver;
+import pl.edu.agh.dsrg.sr.chat.receiver.ChatChannelReceiver;
+import pl.edu.agh.dsrg.sr.chat.receiver.ManagementChannelReceiver;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 import pl.edu.agh.dsrg.sr.chat.domain.User;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
@@ -115,7 +115,7 @@ public class ChannelsService {
         ChannelName channelName = new ChannelName(channelRawName);
         ChatConfig.buildProtocolStack(stack, channelName);
 
-        jChannel.setReceiver(new ChatChannelReceiver(nickName, channelName, this));
+        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName, this));
         ChatChannel chatChannel = new ChatChannel(new ChannelName(channelRawName), jChannel);
         channelRepository.add(chatChannel);
         return chatChannel;
@@ -128,7 +128,7 @@ public class ChannelsService {
         jChannel.setProtocolStack(stack);
         ChatConfig.buildProtocolStack(stack, channelName);
 
-        jChannel.setReceiver(new ChatChannelReceiver(nickName, channelName, this));
+        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName, this));
         return new ChatChannel(channelName, jChannel);
     }
 

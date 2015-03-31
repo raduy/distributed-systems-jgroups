@@ -7,14 +7,14 @@ import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
-public class SwitchToChannelCommand implements ICommand {
+class SwitchToChannelCommand implements ICommand {
     public static final String INVOCATION_PREFIX = "-s";
     public static final String USAGE = "-s <channelName>";
     public static final String DESCRIPTION = "Switches to existing channel (channelName must be a multicast address)";
     private final String command;
     private final ChannelsService channelsService;
 
-    public SwitchToChannelCommand(String command, ChannelsService channelsService) {
+    SwitchToChannelCommand(String command, ChannelsService channelsService) {
         this.command = command;
         this.channelsService = channelsService;
     }

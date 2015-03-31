@@ -1,10 +1,7 @@
-package pl.edu.agh.dsrg.sr.chat.command;
+package pl.edu.agh.dsrg.sr.chat.receiver;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.jgroups.Address;
-import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
-import org.jgroups.View;
+import org.jgroups.*;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
@@ -15,11 +12,13 @@ import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
  */
 public class ChatChannelReceiver extends ReceiverAdapter {
 
+    private JChannel jChannel;
     private final String nickName;
     private final ChannelName channelName;
     private final ChannelsService channelsService;
 
-    public ChatChannelReceiver(String nickName, ChannelName channelName, ChannelsService channelsService) {
+    public ChatChannelReceiver(JChannel jChannel, String nickName, ChannelName channelName, ChannelsService channelsService) {
+        this.jChannel = jChannel;
         this.nickName = nickName;
         this.channelName = channelName;
         this.channelsService = channelsService;
@@ -38,7 +37,10 @@ public class ChatChannelReceiver extends ReceiverAdapter {
             message = ChatOperationProtos.ChatMessage.parseFrom(msg.getBuffer()).getMessage();
 
 //            System.out.printf(ChatConfig.promptFormat() + "%s", nickname, channelName, connectedUsersCount, message);
-            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", srcAddress, channelName, 42, message);
+
+            String name = this.jChannel.getName(srcAddress);
+            int size = this.jChannel.getView().size();
+            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", name, channelName, size, message);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }

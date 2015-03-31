@@ -15,6 +15,7 @@ public class ChatConfig {
     public static final String MANAGEMENT_CHANNEL_NAME = "ChatManagement768624";
     public static final Address EVERYBODY = null; /* null means everybody for JGroups ~_~ */
 
+    //TODO remove duplicated code
     public static ProtocolStack buildProtocolStack(ProtocolStack stack, ChannelName channelName) {
         try {
             stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName(channelName.toString())))

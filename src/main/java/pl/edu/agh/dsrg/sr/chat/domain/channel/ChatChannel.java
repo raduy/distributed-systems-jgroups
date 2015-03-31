@@ -1,11 +1,9 @@
 package pl.edu.agh.dsrg.sr.chat.domain.channel;
 
-import org.jgroups.Address;
 import org.jgroups.JChannel;
 import pl.edu.agh.dsrg.sr.chat.domain.User;
 
 import java.util.HashSet;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static java.lang.String.format;

@@ -1,11 +1,12 @@
-package pl.edu.agh.dsrg.sr.chat.command;
+package pl.edu.agh.dsrg.sr.chat.receiver;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import org.jgroups.*;
+import org.jgroups.Message;
+import org.jgroups.ReceiverAdapter;
+import org.jgroups.View;
+import pl.edu.agh.dsrg.sr.chat.domain.User;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannel;
-import pl.edu.agh.dsrg.sr.chat.domain.User;
 import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
@@ -82,37 +83,37 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
 
     @Override
     public void receive(Message msg) {
-        try {
-            ChatOperationProtos.ChatAction chatAction
-                    = ChatOperationProtos.ChatAction.parseFrom(msg.getBuffer());
-
-            String nickname = chatAction.getNickname();
-            User user = new User(nickname);
-
-            String channelRawName = chatAction.getChannel();
-            ChannelName channelName = new ChannelName(channelRawName);
-
-            ChatChannel chatChannel = channelRepository.loadByName(channelName);
-            if (chatChannel == null) {
-                chatChannel = channelsService.createNewChannel(channelName);
-                channelRepository.add(chatChannel);
-            }
-
-            switch (chatAction.getAction()) {
-                case JOIN:
-                    chatChannel.connectUser(user);
-                    System.out.printf("<Management channel> User %s joined %s channel\n",
-                            nickname, channelRawName);
-                    break;
-                case LEAVE:
-                    chatChannel.disconnectUser(user);
-                    System.out.printf("<Management channel> User %s left %s channel\n",
-                            nickname, channelRawName);
-            }
-
-        } catch (InvalidProtocolBufferException e) {
-            System.out.println("Protobuf marshalling exception!");
-            e.printStackTrace();
-        }
+//        try {
+//            ChatOperationProtos.ChatAction chatAction
+//                    = ChatOperationProtos.ChatAction.parseFrom(msg.getBuffer());
+//
+//            String nickname = chatAction.getNickname();
+//            User user = new User(nickname);
+//
+//            String channelRawName = chatAction.getChannel();
+//            ChannelName channelName = new ChannelName(channelRawName);
+//
+//            ChatChannel chatChannel = channelRepository.loadByName(channelName);
+//            if (chatChannel == null) {
+//                chatChannel = channelsService.createNewChannel(channelName);
+//                channelRepository.add(chatChannel);
+//            }
+//
+//            switch (chatAction.getAction()) {
+//                case JOIN:
+//                    chatChannel.connectUser(user);
+//                    System.out.printf("<Management channel> User %s joined %s channel\n",
+//                            nickname, channelRawName);
+//                    break;
+//                case LEAVE:
+//                    chatChannel.disconnectUser(user);
+//                    System.out.printf("<Management channel> User %s left %s channel\n",
+//                            nickname, channelRawName);
+//            }
+//
+//        } catch (InvalidProtocolBufferException e) {
+//            System.out.println("Protobuf marshalling exception!");
+//            e.printStackTrace();
+//        }
     }
 }

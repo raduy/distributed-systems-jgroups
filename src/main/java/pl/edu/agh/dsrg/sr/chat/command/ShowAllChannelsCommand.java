@@ -6,13 +6,13 @@ import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
-public class ShowAllChannelsCommand implements ICommand {
+class ShowAllChannelsCommand implements ICommand {
     public static final String INVOCATION_PREFIX = "-c";
     public static final String USAGE = "-c";
     public static final String DESCRIPTION = "Shows all (existing channels)";
     private final ChatChannelRepository channelRepository;
 
-    public ShowAllChannelsCommand(ChatChannelRepository channelRepository) {
+    ShowAllChannelsCommand(ChatChannelRepository channelRepository) {
         this.channelRepository = channelRepository;
     }
 

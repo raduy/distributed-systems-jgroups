@@ -3,6 +3,8 @@ package pl.edu.agh.dsrg.sr.chat.domain.channel;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static java.util.Collections.unmodifiableSet;
+
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
@@ -18,7 +20,7 @@ public class ChatChannelRepository implements Iterable<ChatChannel> {
     }
 
     public Set<ChatChannel> immutableView() {
-        return Collections.unmodifiableSet(new HashSet<>(channels.values()));
+        return unmodifiableSet(new HashSet<>(channels.values()));
     }
 
     @Override
