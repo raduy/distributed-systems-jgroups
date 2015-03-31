@@ -1,4 +1,4 @@
-package pl.edu.agh.dsrg.sr.chat.learning;
+package pl.edu.agh.dsrg.sr.learning;
 
 import org.jgroups.*;
 import org.jgroups.protocols.*;
@@ -15,8 +15,8 @@ import java.net.InetAddress;
  */
 public class SimpleChat {
     public static void main(String[] args) throws Exception {
-        JChannel ch = new JChannel(false);         // (1)
-        ProtocolStack stack = new ProtocolStack(); // (2)
+        JChannel ch = new JChannel(false);
+        ProtocolStack stack = new ProtocolStack();
         ch.setProtocolStack(stack);
         stack.addProtocol(new UDP().setValue("bind_addr",
                 InetAddress.getByName("192.168.0.5")))
@@ -33,10 +33,8 @@ public class SimpleChat {
                 .addProtocol(new GMS())
                 .addProtocol(new UFC())
                 .addProtocol(new MFC())
-                .addProtocol(new FRAG2());       // (3)
-        stack.init();                            // (4)
-
-//        new Message(byteArray)
+                .addProtocol(new FRAG2());
+        stack.init();
 
         ch.setReceiver(new ReceiverAdapter() {
             public void viewAccepted(View new_view) {
@@ -51,10 +49,7 @@ public class SimpleChat {
 
         ch.connect("ChatCluster");
 
-
-        System.out.println("as" + ch.getAddress());
-
-        for (; ; ) {
+        while (!Thread.interrupted()) {
             String line = Util.readStringFromStdin(": ");
             ch.send(null, line);
         }
