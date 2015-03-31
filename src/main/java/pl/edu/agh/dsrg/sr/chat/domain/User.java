@@ -1,25 +1,13 @@
 package pl.edu.agh.dsrg.sr.chat.domain;
 
-import org.jgroups.Address;
-
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class User {
-    private Address srcAddress;
     private final String nickname;
-
-    public User(Address srcAddress, String nickname) {
-        this.srcAddress = srcAddress;
-        this.nickname = nickname;
-    }
 
     public User(String nickname) {
         this.nickname = nickname;
-    }
-
-    public Address getSrcAddress() {
-        return srcAddress;
     }
 
     public String getNickname() {
@@ -34,23 +22,19 @@ public class User {
         User user = (User) o;
 
         if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
-        if (srcAddress != null ? !srcAddress.equals(user.srcAddress) : user.srcAddress != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = srcAddress != null ? srcAddress.hashCode() : 0;
-        result = 31 * result + (nickname != null ? nickname.hashCode() : 0);
-        return result;
+        return nickname != null ? nickname.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "srcAddress=" + srcAddress +
-                ", nickname='" + nickname + '\'' +
+                "nickname='" + nickname + '\'' +
                 '}';
     }
 }

@@ -3,11 +3,9 @@ package pl.edu.agh.dsrg.sr.chat.domain.channel;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.stack.ProtocolStack;
-import pl.edu.agh.dsrg.sr.chat.receiver.ChatChannelReceiver;
-import pl.edu.agh.dsrg.sr.chat.receiver.ManagementChannelReceiver;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
-import pl.edu.agh.dsrg.sr.chat.domain.User;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
+import pl.edu.agh.dsrg.sr.chat.receiver.ManagementChannelReceiver;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
@@ -20,16 +18,16 @@ public class ChannelsService {
 
     private ChatChannel currentChannel;
     private String nickName;
-    private final JChannel managementChannel;
+    private JChannel managementChannel;
+    private final ChannelFactory channelFactory;
 
     public ChannelsService(String nickName, ChatChannelRepository channelRepository) {
         this.nickName = nickName;
         this.channelRepository = channelRepository;
-
-        this.managementChannel = connectToManagementChannel();
+        this.channelFactory = new ChannelFactory(nickName);
     }
 
-    private JChannel connectToManagementChannel() {
+    public JChannel connectToManagementChannel() {
         JChannel channel = new JChannel(false);
 
         ProtocolStack stack = new ProtocolStack();
@@ -37,7 +35,7 @@ public class ChannelsService {
         ChatConfig.buildProtocolStack(stack);
 
         ManagementChannelReceiver managementChannelReceiver
-                = new ManagementChannelReceiver(channelRepository, this);
+                = new ManagementChannelReceiver(channelRepository, channelFactory);
         channel.setReceiver(managementChannelReceiver);
         try {
             channel.setName(this.nickName);
@@ -48,6 +46,7 @@ public class ChannelsService {
             e.printStackTrace();
         }
 
+        this.managementChannel = channel;
         return channel;
     }
 
@@ -56,7 +55,7 @@ public class ChannelsService {
 
         if (channel != null) {
             System.out.printf("Channel %s already exist! Joining...\n", name);
-            channel.connectMe();
+//            channel.connectMe();
         } else {
             ChatChannel chatChannel = new ChatChannel(name, jChannel);
             channelRepository.add(chatChannel);
@@ -92,44 +91,6 @@ public class ChannelsService {
 
     public ChatChannel currentChannel() {
         return this.currentChannel;
-    }
-
-    public void addUser(User user, String channelRawName) {
-        ChannelName channelName = new ChannelName(channelRawName);
-
-        ChatChannel chatChannel = channelRepository.loadByName(channelName);
-        if (chatChannel == null) {
-            chatChannel = addChannelToState(user.getNickname(), channelRawName);
-        }
-
-        chatChannel.connectUser(user);
-
-        System.out.println("User added to state" + user + channelRawName);
-    }
-
-    public ChatChannel addChannelToState(String nickName, String channelRawName) {
-        JChannel jChannel = new JChannel(false);
-
-        ProtocolStack stack = new ProtocolStack();
-        jChannel.setProtocolStack(stack);
-        ChannelName channelName = new ChannelName(channelRawName);
-        ChatConfig.buildProtocolStack(stack, channelName);
-
-        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName));
-        ChatChannel chatChannel = new ChatChannel(new ChannelName(channelRawName), jChannel);
-        channelRepository.add(chatChannel);
-        return chatChannel;
-    }
-
-    public ChatChannel createNewChannel(ChannelName channelName) {
-        JChannel jChannel = new JChannel(false);
-
-        ProtocolStack stack = new ProtocolStack();
-        jChannel.setProtocolStack(stack);
-        ChatConfig.buildProtocolStack(stack, channelName);
-
-        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName));
-        return new ChatChannel(channelName, jChannel);
     }
 
     public String getNickName() {

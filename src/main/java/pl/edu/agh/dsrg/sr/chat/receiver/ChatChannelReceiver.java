@@ -10,7 +10,6 @@ import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class ChatChannelReceiver extends ReceiverAdapter {
-
     private final JChannel jChannel;
     private final String nickName;
     private final ChannelName channelName;

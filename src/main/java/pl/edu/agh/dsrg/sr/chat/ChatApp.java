@@ -1,6 +1,7 @@
 package pl.edu.agh.dsrg.sr.chat;
 
 import org.jgroups.Address;
+import org.jgroups.View;
 import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
 import pl.edu.agh.dsrg.sr.chat.command.ICommand;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
@@ -19,9 +20,9 @@ import static pl.edu.agh.dsrg.sr.chat.config.ChatConfig.promptFormat;
 public class ChatApp {
     private final static Address EVERYBODY = ChatConfig.EVERYBODY;
 
+    private final static Scanner scanner = new Scanner(System.in);
     private static ChannelsService channelsService;
-    private static CommandRouter router;
-    private static Scanner scanner = new Scanner(System.in);
+    private CommandRouter router;
     private static final String nickName;
 
     static {
@@ -34,17 +35,20 @@ public class ChatApp {
     }
 
     private void play() {
-
         System.out.printf("Hello %s! \nLoading...\n", nickName);
 
+        initApp();
+        CommandRouter.printAvailableCommands();
+        chatMode();
+    }
+
+    private void initApp() {
         ChatChannelRepository channelRepository = new ChatChannelRepository();
         channelsService = new ChannelsService(nickName, channelRepository);
 
+        channelsService.connectToManagementChannel();
         System.out.printf("Done! Here are your options:\n");
         router = new CommandRouter(channelsService, channelRepository);
-
-        CommandRouter.printAvailableCommands();
-        chatMode();
     }
 
     private static String readNickName(Scanner scanner) {
@@ -94,7 +98,13 @@ public class ChatApp {
     public static void printContext() {
         ChatChannel currentChatChannel = channelsService.currentChannel();
         if (currentChatChannel != null && currentChatChannel.getJChannel() != null) {
-            printContext(nickName, currentChatChannel.rawName(), currentChatChannel.getJChannel().getView().size());
+            View view = currentChatChannel.getJChannel().getView();
+            if (view != null) {
+                printContext(nickName, currentChatChannel.rawName(), view.size());
+            } else {
+                printContext(nickName, currentChatChannel.rawName(), 0);
+            }
+
         } else {
             printContext(nickName, "no channel!", 0);
         }
@@ -108,7 +118,7 @@ public class ChatApp {
         System.out.printf(promptFormat() + "%s", nickName, channelName, channelSize, message);
     }
 
-    public static void commandMode(String userInput) {
+    public void commandMode(String userInput) {
         ICommand command = router.matchCommand(userInput);
         command.execute();
     }

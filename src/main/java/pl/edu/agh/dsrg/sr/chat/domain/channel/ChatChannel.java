@@ -39,6 +39,7 @@ public class ChatChannel {
         }
 
         try {
+            jChannel.setName("ppp");
             jChannel.connect(channelName.toString());
         } catch (Exception e) {
             System.out.printf("Cannot connect to %s channel", channelName);
@@ -70,8 +71,7 @@ public class ChatChannel {
                 .append(format(" (%s)\n", amIConnected() ? "connected" : "disconnected"));
 
         for (User user : users) {
-            buffer.append(format("\t\t%s with srcAddress: %s \n",
-                    user.getNickname(), user.getSrcAddress()));
+            buffer.append(format("\t\t%s \n", user.getNickname()));
         }
 
         return buffer.toString();

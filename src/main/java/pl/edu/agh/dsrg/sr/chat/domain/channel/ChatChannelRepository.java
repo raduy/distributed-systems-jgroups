@@ -27,4 +27,14 @@ public class ChatChannelRepository implements Iterable<ChatChannel> {
     public Iterator<ChatChannel> iterator() {
         return this.immutableView().iterator();
     }
+
+    public ChatChannel loadByNameOrNew(ChannelName channelName, ChannelFactory factory) {
+        ChatChannel chatChannel = loadByName(channelName);
+
+        if (chatChannel == null) {
+            chatChannel = factory.create(channelName);
+            add(chatChannel);
+        }
+        return chatChannel;
+    }
 }
