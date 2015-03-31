@@ -2,9 +2,8 @@ package pl.edu.agh.dsrg.sr.chat.receiver;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.jgroups.*;
-import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
-import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 /**
@@ -12,16 +11,14 @@ import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
  */
 public class ChatChannelReceiver extends ReceiverAdapter {
 
-    private JChannel jChannel;
+    private final JChannel jChannel;
     private final String nickName;
     private final ChannelName channelName;
-    private final ChannelsService channelsService;
 
-    public ChatChannelReceiver(JChannel jChannel, String nickName, ChannelName channelName, ChannelsService channelsService) {
+    public ChatChannelReceiver(JChannel jChannel, String nickName, ChannelName channelName) {
         this.jChannel = jChannel;
         this.nickName = nickName;
         this.channelName = channelName;
-        this.channelsService = channelsService;
     }
 
     @Override
@@ -31,18 +28,25 @@ public class ChatChannelReceiver extends ReceiverAdapter {
 
     @Override
     public void receive(Message msg) {
+        if (isMyMessage(msg)) {
+            return;
+        }
+
         String message;
         Address srcAddress = msg.getSrc();
         try {
             message = ChatOperationProtos.ChatMessage.parseFrom(msg.getBuffer()).getMessage();
 
-//            System.out.printf(ChatConfig.promptFormat() + "%s", nickname, channelName, connectedUsersCount, message);
+            String nickName = jChannel.getName(srcAddress);
+            int membersInChannelCount = jChannel.getView().size();
 
-            String name = this.jChannel.getName(srcAddress);
-            int size = this.jChannel.getView().size();
-            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", name, channelName, size, message);
+            System.out.printf("\n" + ChatConfig.promptFormat() + "%s", nickName, channelName, membersInChannelCount, message);
         } catch (InvalidProtocolBufferException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean isMyMessage(Message msg) {
+        return jChannel.getName(msg.getSrc()).equals(nickName);
     }
 }

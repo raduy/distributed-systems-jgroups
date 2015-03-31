@@ -19,7 +19,7 @@ class CreateNewChannelCommand implements ICommand {
     public static final String DESCRIPTION = "Creates new channel (channelName must be a multicast address)";
 
     private ChannelName channelName;
-    private ChannelsService channelsService;
+    private final ChannelsService channelsService;
 
     CreateNewChannelCommand(String command, ChannelsService channelsService) {
         this.channelsService = channelsService;
@@ -53,9 +53,10 @@ class CreateNewChannelCommand implements ICommand {
             jChannel.setProtocolStack(stack);
             ChatConfig.buildProtocolStack(stack, channelName);
 
-            jChannel.setReceiver(new ChatChannelReceiver(jChannel, channelsService.getNickName(), channelName, channelsService));
+            jChannel.setReceiver(new ChatChannelReceiver(jChannel, channelsService.getNickName(), channelName));
             channelsService.registerNewChannel(channelName, jChannel);
 
+            jChannel.setName(this.channelsService.getNickName());
             jChannel.connect(channelName.toString());
 
         } catch (Exception e) {

@@ -115,7 +115,7 @@ public class ChannelsService {
         ChannelName channelName = new ChannelName(channelRawName);
         ChatConfig.buildProtocolStack(stack, channelName);
 
-        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName, this));
+        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName));
         ChatChannel chatChannel = new ChatChannel(new ChannelName(channelRawName), jChannel);
         channelRepository.add(chatChannel);
         return chatChannel;
@@ -128,15 +128,8 @@ public class ChannelsService {
         jChannel.setProtocolStack(stack);
         ChatConfig.buildProtocolStack(stack, channelName);
 
-        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName, this));
+        jChannel.setReceiver(new ChatChannelReceiver(jChannel, nickName, channelName));
         return new ChatChannel(channelName, jChannel);
-    }
-
-    public void removeUser(User user, String rawChannelName) {
-        ChatChannel chatChannel = channelRepository.loadByName(new ChannelName(rawChannelName));
-        chatChannel.disconnectUser(user);
-
-        System.out.println("User removed from state" + user + rawChannelName);
     }
 
     public String getNickName() {
