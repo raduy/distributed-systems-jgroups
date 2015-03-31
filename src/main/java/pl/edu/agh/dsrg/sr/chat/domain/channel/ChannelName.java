@@ -1,4 +1,6 @@
-package pl.edu.agh.dsrg.sr.chat.channel;
+package pl.edu.agh.dsrg.sr.chat.domain.channel;
+
+import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

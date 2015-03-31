@@ -1,7 +1,6 @@
-package pl.edu.agh.dsrg.sr.chat.command;
+package pl.edu.agh.dsrg.sr.chat.domain;
 
-import pl.edu.agh.dsrg.sr.chat.channel.ChatChannel;
-import pl.edu.agh.dsrg.sr.chat.channel.User;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannel;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>

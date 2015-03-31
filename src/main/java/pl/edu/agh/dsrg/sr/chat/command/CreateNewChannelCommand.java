@@ -2,9 +2,9 @@ package pl.edu.agh.dsrg.sr.chat.command;
 
 import org.jgroups.JChannel;
 import org.jgroups.stack.ProtocolStack;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
-import pl.edu.agh.dsrg.sr.chat.channel.MalformedMulticastAddressException;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
+import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
 
 import java.util.Scanner;
@@ -18,10 +18,10 @@ public class CreateNewChannelCommand implements ICommand {
     public static final String DESCRIPTION = "Creates new channel (channelName must be a multicast address)";
 
     private ChannelName channelName;
-    private ChannelsHandler channelsHandler;
+    private ChannelsService channelsService;
 
-    public CreateNewChannelCommand(String command, ChannelsHandler channelsHandler) {
-        this.channelsHandler = channelsHandler;
+    public CreateNewChannelCommand(String command, ChannelsService channelsService) {
+        this.channelsService = channelsService;
         this.channelName = parseChannelName(command);
     }
 
@@ -52,8 +52,8 @@ public class CreateNewChannelCommand implements ICommand {
             jChannel.setProtocolStack(stack);
             ChatConfig.buildProtocolStack(stack, channelName);
 
-            jChannel.setReceiver(new ChatChannelReceiver(channelsHandler.getNickName(), channelName, channelsHandler));
-            channelsHandler.registerNewChannel(channelName, jChannel);
+            jChannel.setReceiver(new ChatChannelReceiver(channelsService.getNickName(), channelName, channelsService));
+            channelsService.registerNewChannel(channelName, jChannel);
 
             jChannel.connect(channelName.toString());
 

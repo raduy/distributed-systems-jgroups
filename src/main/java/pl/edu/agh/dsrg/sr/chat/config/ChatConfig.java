@@ -4,7 +4,7 @@ import org.jgroups.Address;
 import org.jgroups.protocols.*;
 import org.jgroups.protocols.pbcast.*;
 import org.jgroups.stack.ProtocolStack;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
 
 import java.net.InetAddress;
 

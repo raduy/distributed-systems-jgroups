@@ -1,13 +1,12 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.jgroups.Address;
-import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
-import org.jgroups.View;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
-import pl.edu.agh.dsrg.sr.chat.channel.ChatChannel;
-import pl.edu.agh.dsrg.sr.chat.channel.User;
+import org.jgroups.*;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannel;
+import pl.edu.agh.dsrg.sr.chat.domain.User;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 import java.io.InputStream;
@@ -18,35 +17,45 @@ import java.util.List;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class ManagementChannelReceiver extends ReceiverAdapter {
-    private final ChannelsHandler channelsHandler;
+    private final ChatChannelRepository channelRepository;
+    private final ChannelsService channelsService;
 
-    public ManagementChannelReceiver(ChannelsHandler channelsHandler) {
-        this.channelsHandler = channelsHandler;
+    public ManagementChannelReceiver(ChatChannelRepository channelRepository,
+                                     ChannelsService channelsService) {
+        this.channelRepository = channelRepository;
+        this.channelsService = channelsService;
     }
 
     @Override
     public void getState(OutputStream output) throws Exception {
-        ChatOperationProtos.ChatState.Builder stateBuilder = ChatOperationProtos.ChatState.newBuilder();
+        ChatOperationProtos.ChatState.Builder stateBuilder
+                = ChatOperationProtos.ChatState.newBuilder();
 
-        for (ChatChannel chatChannel : channelsHandler) {
-            for (User user : chatChannel.getUsers()) {
-                ChatOperationProtos.ChatAction action = ChatOperationProtos.ChatAction.newBuilder()
-                        .setAction(ChatOperationProtos.ChatAction.ActionType.JOIN)
-                        .setChannel(chatChannel.getChannelRawName())
-                        .setNickname(user.getNickname())
-                        .build();
-
-                stateBuilder.addState(action);
-            }
+        for (ChatChannel chatChannel : channelRepository.immutableView()) {
+            appendUsers(stateBuilder, chatChannel);
         }
         output.write(stateBuilder.build().toByteArray());
+    }
 
-        System.out.println("getState");
+    private void appendUsers(ChatOperationProtos.ChatState.Builder stateBuilder,
+                             ChatChannel chatChannel) {
+
+        for (User user : chatChannel.getUsers()) {
+            ChatOperationProtos.ChatAction action = ChatOperationProtos.ChatAction
+                    .newBuilder()
+                    .setAction(ChatOperationProtos.ChatAction.ActionType.JOIN)
+                    .setChannel(chatChannel.rawName())
+                    .setNickname(user.getNickname())
+                    .build();
+
+            stateBuilder.addState(action);
+        }
     }
 
     @Override
     public void setState(InputStream input) throws Exception {
-        ChatOperationProtos.ChatState chatState = ChatOperationProtos.ChatState.parseFrom(input);
+        ChatOperationProtos.ChatState chatState
+                = ChatOperationProtos.ChatState.parseFrom(input);
 
         if (chatState == null) {
             return;
@@ -54,10 +63,16 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
 
         List<ChatOperationProtos.ChatAction> actions = chatState.getStateList();
         for (ChatOperationProtos.ChatAction action : actions) {
-            this.channelsHandler.addUser(new User(action.getNickname()), action.getChannel());
-        }
+            ChannelName channelName = new ChannelName(action.getChannel());
 
-        System.out.println("setState");
+            ChatChannel chatChannel = channelRepository.loadByName(channelName);
+            if (chatChannel == null) {
+                chatChannel = channelsService.createNewChannel(channelName);
+                channelRepository.add(chatChannel);
+            }
+
+            chatChannel.connectUser(new User(action.getNickname()));
+        }
     }
 
     @Override
@@ -67,22 +82,32 @@ public class ManagementChannelReceiver extends ReceiverAdapter {
 
     @Override
     public void receive(Message msg) {
-        ChatOperationProtos.ChatAction chatAction;
-        Address srcAddress = msg.getSrc();
         try {
-            chatAction = ChatOperationProtos.ChatAction.parseFrom(msg.getBuffer());
+            ChatOperationProtos.ChatAction chatAction
+                    = ChatOperationProtos.ChatAction.parseFrom(msg.getBuffer());
 
-            User user = new User(srcAddress, chatAction.getNickname());
-            String channelName = chatAction.getChannel();
+            String nickname = chatAction.getNickname();
+            User user = new User(nickname);
+
+            String channelRawName = chatAction.getChannel();
+            ChannelName channelName = new ChannelName(channelRawName);
+
+            ChatChannel chatChannel = channelRepository.loadByName(channelName);
+            if (chatChannel == null) {
+                chatChannel = channelsService.createNewChannel(channelName);
+                channelRepository.add(chatChannel);
+            }
 
             switch (chatAction.getAction()) {
                 case JOIN:
-                    channelsHandler.addUser(user, channelName);
-                    System.out.printf("<Management channel> User %s joined %s channel\n", chatAction.getNickname(), channelName);
+                    chatChannel.connectUser(user);
+                    System.out.printf("<Management channel> User %s joined %s channel\n",
+                            nickname, channelRawName);
                     break;
                 case LEAVE:
-                    channelsHandler.removeUser(user, channelName);
-                    System.out.printf("<Management channel> User %s left %s channel\n", chatAction.getNickname(), channelName);
+                    chatChannel.disconnectUser(user);
+                    System.out.printf("<Management channel> User %s left %s channel\n",
+                            nickname, channelRawName);
             }
 
         } catch (InvalidProtocolBufferException e) {

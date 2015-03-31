@@ -1,6 +1,7 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +11,12 @@ import java.util.Map;
  */
 public class CommandRouter {
     private static final Map<String, String> commands = new HashMap<>();
-    private final ChannelsHandler channelsHandler;
+    private final ChannelsService channelsService;
+    private final ChatChannelRepository channelRepository;
 
-    public CommandRouter(ChannelsHandler channelsHandler) {
-        this.channelsHandler = channelsHandler;
+    public CommandRouter(ChannelsService channelsService, ChatChannelRepository channelRepository) {
+        this.channelsService = channelsService;
+        this.channelRepository = channelRepository;
     }
 
     static {
@@ -30,15 +33,15 @@ public class CommandRouter {
 
     public ICommand matchCommand(String cmd) {
         if (cmd.startsWith(CreateNewChannelCommand.INVOCATION_PREFIX)) {
-            return new CreateNewChannelCommand(cmd, channelsHandler);
+            return new CreateNewChannelCommand(cmd, channelsService);
         }
 
         if (cmd.startsWith(SwitchToChannelCommand.INVOCATION_PREFIX)) {
-            return new SwitchToChannelCommand(cmd, channelsHandler);
+            return new SwitchToChannelCommand(cmd, channelsService);
         }
 
         if (cmd.startsWith(ShowAllChannelsCommand.INVOCATION_PREFIX)) {
-            return new ShowAllChannelsCommand(cmd, channelsHandler);
+            return new ShowAllChannelsCommand(channelRepository);
         }
 
         return new PrintHelpCommand();

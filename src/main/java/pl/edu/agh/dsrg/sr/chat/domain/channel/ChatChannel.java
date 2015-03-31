@@ -1,7 +1,8 @@
-package pl.edu.agh.dsrg.sr.chat.channel;
+package pl.edu.agh.dsrg.sr.chat.domain.channel;
 
 import org.jgroups.Address;
 import org.jgroups.JChannel;
+import pl.edu.agh.dsrg.sr.chat.domain.User;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -13,12 +14,12 @@ import static java.lang.String.format;
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
  */
 public class ChatChannel {
-    private final String channelRawName;
+    private final ChannelName channelName;
     private final JChannel jChannel;
     private final Set<User> users = new HashSet<>();
 
-    public ChatChannel(String channelRawName, JChannel jChannel) {
-        this.channelRawName = channelRawName;
+    public ChatChannel(ChannelName channelName, JChannel jChannel) {
+        this.channelName = channelName;
         this.jChannel = jChannel;
     }
 
@@ -30,22 +31,8 @@ public class ChatChannel {
         this.users.remove(user);
     }
 
-    public JChannel getJChannel() {
-        return jChannel;
-    }
-
-    public Set<User> getUsers() {
-        return new HashSet<>(users);
-    }
-
-    public User findUser(Address srcAddress) {
-        for (User user : users) {
-            if (user.getSrcAddress().equals(srcAddress)) {
-                return user;
-            }
-        }
-
-        throw new NoSuchElementException(format("No user with %s srcAddress in %s channel", srcAddress, jChannel.getClusterName()));
+    public String rawName() {
+        return channelName.toString();
     }
 
     public void connectMe() {
@@ -54,9 +41,9 @@ public class ChatChannel {
         }
 
         try {
-            jChannel.connect(channelRawName);
+            jChannel.connect(channelName.toString());
         } catch (Exception e) {
-            System.out.printf("Cannot connect to %s channel", channelRawName);
+            System.out.printf("Cannot connect to %s channel", channelName);
             e.printStackTrace();
         }
     }
@@ -65,19 +52,28 @@ public class ChatChannel {
         return this.getJChannel().isConnected();
     }
 
-    public String getChannelRawName() {
-        return channelRawName;
+    public JChannel getJChannel() {
+        return jChannel;
+    }
+
+    public Set<User> getUsers() {
+        return new HashSet<>(users);
+    }
+
+    public ChannelName channelName() {
+        return channelName;
     }
 
     @Override
     public String toString() {
         StringBuilder buffer = new StringBuilder();
 
-        buffer.append(channelRawName)
+        buffer.append(channelName)
                 .append(format(" (%s)\n", amIConnected() ? "connected" : "disconnected"));
 
         for (User user : users) {
-            buffer.append(format("\t\t%s with srcAddress: %s \n", user.getNickname(), user.getSrcAddress()));
+            buffer.append(format("\t\t%s with srcAddress: %s \n",
+                    user.getNickname(), user.getSrcAddress()));
         }
 
         return buffer.toString();

@@ -1,8 +1,8 @@
 package pl.edu.agh.dsrg.sr.chat.command;
 
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelName;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
-import pl.edu.agh.dsrg.sr.chat.channel.MalformedMulticastAddressException;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelName;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
+import pl.edu.agh.dsrg.sr.chat.domain.MalformedMulticastAddressException;
 
 /**
  * @author Lukasz Raduj <raduj.lukasz@gmail.com>
@@ -12,11 +12,11 @@ public class SwitchToChannelCommand implements ICommand {
     public static final String USAGE = "-s <channelName>";
     public static final String DESCRIPTION = "Switches to existing channel (channelName must be a multicast address)";
     private final String command;
-    private final ChannelsHandler channelsHandler;
+    private final ChannelsService channelsService;
 
-    public SwitchToChannelCommand(String command, ChannelsHandler channelsHandler) {
+    public SwitchToChannelCommand(String command, ChannelsService channelsService) {
         this.command = command;
-        this.channelsHandler = channelsHandler;
+        this.channelsService = channelsService;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class SwitchToChannelCommand implements ICommand {
         ChannelName channelName;
         try {
             channelName = new ChannelName(rawChannelName);
-            this.channelsHandler.switchChannel(channelName);
+            this.channelsService.switchChannel(channelName);
         } catch (MalformedMulticastAddressException e) {
             System.out.println("Malformed channel name! Must be a correct multicast address");
         }

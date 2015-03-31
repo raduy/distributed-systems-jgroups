@@ -2,10 +2,12 @@ package pl.edu.agh.dsrg.sr.chat;
 
 import org.jgroups.Address;
 import org.jgroups.JChannel;
-import pl.edu.agh.dsrg.sr.chat.channel.ChannelsHandler;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChannelsService;
 import pl.edu.agh.dsrg.sr.chat.command.CommandRouter;
 import pl.edu.agh.dsrg.sr.chat.command.ICommand;
 import pl.edu.agh.dsrg.sr.chat.config.ChatConfig;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannel;
+import pl.edu.agh.dsrg.sr.chat.domain.channel.ChatChannelRepository;
 import pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos;
 
 import java.util.Scanner;
@@ -18,7 +20,7 @@ import static pl.edu.agh.dsrg.sr.chat.config.ChatConfig.promptFormat;
 public class ChatApp {
     private final static Address EVERYBODY = ChatConfig.EVERYBODY;
 
-    private static ChannelsHandler channelsHandler;
+    private static ChannelsService channelsService;
     private static CommandRouter router;
     private static Scanner scanner = new Scanner(System.in);
 
@@ -28,10 +30,11 @@ public class ChatApp {
         String nickName = readNickName(scanner);
         System.out.printf("Hello %s! \nLoading...\n", nickName);
 
-        channelsHandler = new ChannelsHandler(nickName);
+        ChatChannelRepository channelRepository = new ChatChannelRepository();
+        channelsService = new ChannelsService(nickName, channelRepository);
 
         System.out.printf("Done! Here are your options:\n");
-        router = new CommandRouter(channelsHandler);
+        router = new CommandRouter(channelsService, channelRepository);
 
         CommandRouter.printAvailableCommands();
         chatMode();
@@ -41,7 +44,7 @@ public class ChatApp {
         System.out.println("What's your name?");
         String nickName;
 
-        while(true) {
+        while (true) {
             nickName = scanner.nextLine();
             if (nickName.isEmpty()) {
                 System.out.println("You really don't have a name?");
@@ -53,17 +56,19 @@ public class ChatApp {
 
     public static void chatMode() {
         while (!Thread.interrupted()) {
-            JChannel channel = channelsHandler.currentChannel();
-            String nickName = channelsHandler.getNickName();
+            ChatChannel chatChannel = channelsService.currentChannel();
+            String nickName = channelsService.getNickName();
             String channelName;
 
-            if (channel != null) {
-                channelName = channel.getClusterName();
-                int channelSize = channel.getView().getMembers().size();
+            if (chatChannel != null && chatChannel.getJChannel() != null) {
+                JChannel jChannel = chatChannel.getJChannel();
+
+                channelName = jChannel.getClusterName();
+                int channelSize = jChannel.getView().getMembers().size();
 
                 System.out.printf(promptFormat(), nickName, channelName, channelSize);
             } else {
-                System.out.printf(promptFormat(), nickName, "no channel! ", 0);
+                System.out.printf(promptFormat(), nickName, "no chatChannel! ", 0);
             }
 
             String userInput = scanner.nextLine();
@@ -76,13 +81,13 @@ public class ChatApp {
                 continue;
             }
 
-            if (channel != null) {
+            if (chatChannel != null && chatChannel.getJChannel() != null) {
                 try {
                     ChatOperationProtos.ChatMessage message = ChatOperationProtos.ChatMessage.newBuilder()
                             .setMessage(userInput)
                             .build();
 
-                    channel.send(EVERYBODY, message.toByteArray());
+                    chatChannel.getJChannel().send(EVERYBODY, message.toByteArray());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
