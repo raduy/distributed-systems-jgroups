@@ -72,11 +72,19 @@ public class ChannelsService {
         return chatChannel;
     }
 
-    private void sendJoinNotification(ChannelName name) {
+    private void sendJoinNotification(ChannelName channelName) {
+        sendNotification(channelName, ChatOperationProtos.ChatAction.ActionType.JOIN);
+    }
+
+    private void sendLeaveNotification(ChannelName channelName) {
+        sendNotification(channelName, ChatOperationProtos.ChatAction.ActionType.LEAVE);
+    }
+
+    private void sendNotification(ChannelName channelName, ChatOperationProtos.ChatAction.ActionType actionType) {
         ChatOperationProtos.ChatAction build = ChatOperationProtos.ChatAction.newBuilder()
-                .setAction(ChatOperationProtos.ChatAction.ActionType.JOIN)
+                .setAction(actionType)
                 .setNickname(nickName)
-                .setChannel(name.toString())
+                .setChannel(channelName.toString())
                 .build();
         try {
             managementChannel.send(EVERYBODY, build.toByteArray());
@@ -95,5 +103,21 @@ public class ChannelsService {
 
     public void switchChannel(ChannelName channelName) {
         this.currentChannel = channelRepository.loadByName(channelName);
+    }
+
+    public void closeCurrentChannel() {
+        if (currentChannel() == null) {
+            System.out.println("No channel to leave!");
+            return;
+        }
+
+        ChatChannel chatChannel = currentChannel();
+        chatChannel.getJChannel().close();
+
+        sendLeaveNotification(chatChannel.channelName());
+
+        currentChannel = channelRepository.iterator().next();
+
+        System.out.printf("\rChannel %s closed.\n", chatChannel.rawName());
     }
 }
