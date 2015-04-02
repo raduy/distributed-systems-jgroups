@@ -6,67 +6,31 @@ package pl.edu.agh.dsrg.sr.chat.protos;
 public final class ChatOperationProtos {
   private ChatOperationProtos() {}
   public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
+          com.google.protobuf.ExtensionRegistry registry) {
   }
   public interface ChatActionOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+          extends com.google.protobuf.MessageOrBuilder {
 
     // required .ChatAction.ActionType action = 1;
-    /**
-     * <code>required .ChatAction.ActionType action = 1;</code>
-     */
     boolean hasAction();
-    /**
-     * <code>required .ChatAction.ActionType action = 1;</code>
-     */
     pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType getAction();
 
     // required string channel = 2;
-    /**
-     * <code>required string channel = 2;</code>
-     */
     boolean hasChannel();
-    /**
-     * <code>required string channel = 2;</code>
-     */
-    java.lang.String getChannel();
-    /**
-     * <code>required string channel = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getChannelBytes();
+    String getChannel();
 
     // required string nickname = 3;
-    /**
-     * <code>required string nickname = 3;</code>
-     */
     boolean hasNickname();
-    /**
-     * <code>required string nickname = 3;</code>
-     */
-    java.lang.String getNickname();
-    /**
-     * <code>required string nickname = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getNicknameBytes();
+    String getNickname();
   }
-  /**
-   * Protobuf type {@code ChatAction}
-   *
-   * <pre>
-   * wiadomosc przesylana na kanale "ChatManagement768624"
-   * </pre>
-   */
   public static final class ChatAction extends
-      com.google.protobuf.GeneratedMessage
-      implements ChatActionOrBuilder {
+          com.google.protobuf.GeneratedMessage
+          implements ChatActionOrBuilder {
     // Use ChatAction.newBuilder() to construct.
-    private ChatAction(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ChatAction(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ChatAction(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private ChatAction(boolean noInit) {}
 
     private static final ChatAction defaultInstance;
     public static ChatAction getDefaultInstance() {
@@ -77,117 +41,23 @@ public final class ChatOperationProtos {
       return defaultInstance;
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatAction(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-              int rawValue = input.readEnum();
-              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType value = pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                action_ = value;
-              }
-              break;
-            }
-            case 18: {
-              bitField0_ |= 0x00000002;
-              channel_ = input.readBytes();
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              nickname_ = input.readBytes();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder.class);
+    internalGetFieldAccessorTable() {
+      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_fieldAccessorTable;
     }
 
-    public static com.google.protobuf.Parser<ChatAction> PARSER =
-        new com.google.protobuf.AbstractParser<ChatAction>() {
-      public ChatAction parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatAction(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ChatAction> getParserForType() {
-      return PARSER;
-    }
-
-    /**
-     * Protobuf enum {@code ChatAction.ActionType}
-     */
     public enum ActionType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <code>JOIN = 0;</code>
-       */
+            implements com.google.protobuf.ProtocolMessageEnum {
       JOIN(0, 0),
-      /**
-       * <code>LEAVE = 1;</code>
-       */
       LEAVE(1, 1),
       ;
 
-      /**
-       * <code>JOIN = 0;</code>
-       */
       public static final int JOIN_VALUE = 0;
-      /**
-       * <code>LEAVE = 1;</code>
-       */
       public static final int LEAVE_VALUE = 1;
 
 
@@ -202,37 +72,39 @@ public final class ChatOperationProtos {
       }
 
       public static com.google.protobuf.Internal.EnumLiteMap<ActionType>
-          internalGetValueMap() {
+      internalGetValueMap() {
         return internalValueMap;
       }
       private static com.google.protobuf.Internal.EnumLiteMap<ActionType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<ActionType>() {
-              public ActionType findValueByNumber(int number) {
-                return ActionType.valueOf(number);
-              }
-            };
+              internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<ActionType>() {
+                public ActionType findValueByNumber(int number) {
+                  return ActionType.valueOf(number);
+                }
+              };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
+      getValueDescriptor() {
         return getDescriptor().getValues().get(index);
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
+      getDescriptorForType() {
         return getDescriptor();
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
+      getDescriptor() {
         return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDescriptor().getEnumTypes().get(0);
       }
 
-      private static final ActionType[] VALUES = values();
+      private static final ActionType[] VALUES = {
+              JOIN, LEAVE,
+      };
 
       public static ActionType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+              com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
         if (desc.getType() != getDescriptor()) {
           throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
+                  "EnumValueDescriptor is not for this type.");
         }
         return VALUES[desc.getIndex()];
       }
@@ -252,15 +124,9 @@ public final class ChatOperationProtos {
     // required .ChatAction.ActionType action = 1;
     public static final int ACTION_FIELD_NUMBER = 1;
     private pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType action_;
-    /**
-     * <code>required .ChatAction.ActionType action = 1;</code>
-     */
     public boolean hasAction() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <code>required .ChatAction.ActionType action = 1;</code>
-     */
     public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType getAction() {
       return action_;
     }
@@ -268,39 +134,28 @@ public final class ChatOperationProtos {
     // required string channel = 2;
     public static final int CHANNEL_FIELD_NUMBER = 2;
     private java.lang.Object channel_;
-    /**
-     * <code>required string channel = 2;</code>
-     */
     public boolean hasChannel() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
-    /**
-     * <code>required string channel = 2;</code>
-     */
-    public java.lang.String getChannel() {
+    public String getChannel() {
       java.lang.Object ref = channel_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           channel_ = s;
         }
         return s;
       }
     }
-    /**
-     * <code>required string channel = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getChannelBytes() {
+    private com.google.protobuf.ByteString getChannelBytes() {
       java.lang.Object ref = channel_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         channel_ = b;
         return b;
       } else {
@@ -311,39 +166,28 @@ public final class ChatOperationProtos {
     // required string nickname = 3;
     public static final int NICKNAME_FIELD_NUMBER = 3;
     private java.lang.Object nickname_;
-    /**
-     * <code>required string nickname = 3;</code>
-     */
     public boolean hasNickname() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    /**
-     * <code>required string nickname = 3;</code>
-     */
-    public java.lang.String getNickname() {
+    public String getNickname() {
       java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           nickname_ = s;
         }
         return s;
       }
     }
-    /**
-     * <code>required string nickname = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNicknameBytes() {
+    private com.google.protobuf.ByteString getNicknameBytes() {
       java.lang.Object ref = nickname_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         nickname_ = b;
         return b;
       } else {
@@ -378,7 +222,7 @@ public final class ChatOperationProtos {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeEnum(1, action_.getNumber());
@@ -400,15 +244,15 @@ public final class ChatOperationProtos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, action_.getNumber());
+                .computeEnumSize(1, action_.getNumber());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getChannelBytes());
+                .computeBytesSize(2, getChannelBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getNicknameBytes());
+                .computeBytesSize(3, getNicknameBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -418,61 +262,75 @@ public final class ChatOperationProtos {
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
 
     public static Builder newBuilder() { return Builder.create(); }
@@ -484,30 +342,21 @@ public final class ChatOperationProtos {
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code ChatAction}
-     *
-     * <pre>
-     * wiadomosc przesylana na kanale "ChatManagement768624"
-     * </pre>
-     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder>
+            implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder.class);
+      internalGetFieldAccessorTable() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_fieldAccessorTable;
       }
 
       // Construct using pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.newBuilder()
@@ -515,8 +364,7 @@ public final class ChatOperationProtos {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -544,8 +392,8 @@ public final class ChatOperationProtos {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatAction_descriptor;
+      getDescriptorForType() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDescriptor();
       }
 
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction getDefaultInstanceForType() {
@@ -556,6 +404,16 @@ public final class ChatOperationProtos {
         pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      private pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction buildParsed()
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+                  result).asInvalidProtocolBufferException();
         }
         return result;
       }
@@ -596,14 +454,10 @@ public final class ChatOperationProtos {
           setAction(other.getAction());
         }
         if (other.hasChannel()) {
-          bitField0_ |= 0x00000002;
-          channel_ = other.channel_;
-          onChanged();
+          setChannel(other.getChannel());
         }
         if (other.hasNickname()) {
-          bitField0_ |= 0x00000004;
-          nickname_ = other.nickname_;
-          onChanged();
+          setNickname(other.getNickname());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -611,56 +465,78 @@ public final class ChatOperationProtos {
 
       public final boolean isInitialized() {
         if (!hasAction()) {
-          
+
           return false;
         }
         if (!hasChannel()) {
-          
+
           return false;
         }
         if (!hasNickname()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                com.google.protobuf.UnknownFieldSet.newBuilder(
+                        this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                      extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 8: {
+              int rawValue = input.readEnum();
+              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType value = pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(1, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                action_ = value;
+              }
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              channel_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              bitField0_ |= 0x00000004;
+              nickname_ = input.readBytes();
+              break;
+            }
           }
         }
-        return this;
       }
+
       private int bitField0_;
 
       // required .ChatAction.ActionType action = 1;
       private pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType action_ = pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType.JOIN;
-      /**
-       * <code>required .ChatAction.ActionType action = 1;</code>
-       */
       public boolean hasAction() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>required .ChatAction.ActionType action = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType getAction() {
         return action_;
       }
-      /**
-       * <code>required .ChatAction.ActionType action = 1;</code>
-       */
       public Builder setAction(pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType value) {
         if (value == null) {
           throw new NullPointerException();
@@ -670,9 +546,6 @@ public final class ChatOperationProtos {
         onChanged();
         return this;
       }
-      /**
-       * <code>required .ChatAction.ActionType action = 1;</code>
-       */
       public Builder clearAction() {
         bitField0_ = (bitField0_ & ~0x00000001);
         action_ = pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.ActionType.JOIN;
@@ -682,150 +555,74 @@ public final class ChatOperationProtos {
 
       // required string channel = 2;
       private java.lang.Object channel_ = "";
-      /**
-       * <code>required string channel = 2;</code>
-       */
       public boolean hasChannel() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
-      /**
-       * <code>required string channel = 2;</code>
-       */
-      public java.lang.String getChannel() {
+      public String getChannel() {
         java.lang.Object ref = channel_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           channel_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <code>required string channel = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getChannelBytes() {
-        java.lang.Object ref = channel_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          channel_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string channel = 2;</code>
-       */
-      public Builder setChannel(
-          java.lang.String value) {
+      public Builder setChannel(String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
         channel_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>required string channel = 2;</code>
-       */
       public Builder clearChannel() {
         bitField0_ = (bitField0_ & ~0x00000002);
         channel_ = getDefaultInstance().getChannel();
         onChanged();
         return this;
       }
-      /**
-       * <code>required string channel = 2;</code>
-       */
-      public Builder setChannelBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+      void setChannel(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000002;
         channel_ = value;
         onChanged();
-        return this;
       }
 
       // required string nickname = 3;
       private java.lang.Object nickname_ = "";
-      /**
-       * <code>required string nickname = 3;</code>
-       */
       public boolean hasNickname() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      /**
-       * <code>required string nickname = 3;</code>
-       */
-      public java.lang.String getNickname() {
+      public String getNickname() {
         java.lang.Object ref = nickname_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           nickname_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <code>required string nickname = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNicknameBytes() {
-        java.lang.Object ref = nickname_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nickname_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string nickname = 3;</code>
-       */
-      public Builder setNickname(
-          java.lang.String value) {
+      public Builder setNickname(String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000004;
         nickname_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>required string nickname = 3;</code>
-       */
       public Builder clearNickname() {
         bitField0_ = (bitField0_ & ~0x00000004);
         nickname_ = getDefaultInstance().getNickname();
         onChanged();
         return this;
       }
-      /**
-       * <code>required string nickname = 3;</code>
-       */
-      public Builder setNicknameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+      void setNickname(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000004;
         nickname_ = value;
         onChanged();
-        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ChatAction)
@@ -840,50 +637,26 @@ public final class ChatOperationProtos {
   }
 
   public interface ChatStateOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+          extends com.google.protobuf.MessageOrBuilder {
 
     // repeated .ChatAction state = 1;
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
-    java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> 
-        getStateList();
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
+    java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction>
+    getStateList();
     pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction getState(int index);
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
     int getStateCount();
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
-    java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> 
-        getStateOrBuilderList();
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
+    java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>
+    getStateOrBuilderList();
     pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder getStateOrBuilder(
-        int index);
+            int index);
   }
-  /**
-   * Protobuf type {@code ChatState}
-   *
-   * <pre>
-   * wiadomosc przesylana podczas synchronizacji stanu na kanale
-   * "management" - wszystkie operacje sa typu JOIN
-   * </pre>
-   */
   public static final class ChatState extends
-      com.google.protobuf.GeneratedMessage
-      implements ChatStateOrBuilder {
+          com.google.protobuf.GeneratedMessage
+          implements ChatStateOrBuilder {
     // Use ChatState.newBuilder() to construct.
-    private ChatState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ChatState(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ChatState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private ChatState(boolean noInit) {}
 
     private static final ChatState defaultInstance;
     public static ChatState getDefaultInstance() {
@@ -894,118 +667,34 @@ public final class ChatOperationProtos {
       return defaultInstance;
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatState(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                state_ = new java.util.ArrayList<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              state_.add(input.readMessage(pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.PARSER, extensionRegistry));
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          state_ = java.util.Collections.unmodifiableList(state_);
-        }
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ChatState> PARSER =
-        new com.google.protobuf.AbstractParser<ChatState>() {
-      public ChatState parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatState(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ChatState> getParserForType() {
-      return PARSER;
+    internalGetFieldAccessorTable() {
+      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_fieldAccessorTable;
     }
 
     // repeated .ChatAction state = 1;
     public static final int STATE_FIELD_NUMBER = 1;
     private java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> state_;
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
     public java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> getStateList() {
       return state_;
     }
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
-    public java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> 
-        getStateOrBuilderList() {
+    public java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>
+    getStateOrBuilderList() {
       return state_;
     }
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
     public int getStateCount() {
       return state_.size();
     }
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
     public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction getState(int index) {
       return state_.get(index);
     }
-    /**
-     * <code>repeated .ChatAction state = 1;</code>
-     */
     public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder getStateOrBuilder(
-        int index) {
+            int index) {
       return state_.get(index);
     }
 
@@ -1028,7 +717,7 @@ public final class ChatOperationProtos {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       for (int i = 0; i < state_.size(); i++) {
         output.writeMessage(1, state_.get(i));
@@ -1044,7 +733,7 @@ public final class ChatOperationProtos {
       size = 0;
       for (int i = 0; i < state_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, state_.get(i));
+                .computeMessageSize(1, state_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1054,61 +743,75 @@ public final class ChatOperationProtos {
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
 
     public static Builder newBuilder() { return Builder.create(); }
@@ -1120,31 +823,21 @@ public final class ChatOperationProtos {
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code ChatState}
-     *
-     * <pre>
-     * wiadomosc przesylana podczas synchronizacji stanu na kanale
-     * "management" - wszystkie operacje sa typu JOIN
-     * </pre>
-     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatStateOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder>
+            implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.Builder.class);
+      internalGetFieldAccessorTable() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_fieldAccessorTable;
       }
 
       // Construct using pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.newBuilder()
@@ -1152,8 +845,7 @@ public final class ChatOperationProtos {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1182,8 +874,8 @@ public final class ChatOperationProtos {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatState_descriptor;
+      getDescriptorForType() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.getDescriptor();
       }
 
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState getDefaultInstanceForType() {
@@ -1194,6 +886,16 @@ public final class ChatOperationProtos {
         pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      private pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState buildParsed()
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+                  result).asInvalidProtocolBufferException();
         }
         return result;
       }
@@ -1243,9 +945,9 @@ public final class ChatOperationProtos {
               stateBuilder_ = null;
               state_ = other.state_;
               bitField0_ = (bitField0_ & ~0x00000001);
-              stateBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getStateFieldBuilder() : null;
+              stateBuilder_ =
+                      com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                              getStateFieldBuilder() : null;
             } else {
               stateBuilder_.addAllMessages(other.state_);
             }
@@ -1258,7 +960,7 @@ public final class ChatOperationProtos {
       public final boolean isInitialized() {
         for (int i = 0; i < getStateCount(); i++) {
           if (!getState(i).isInitialized()) {
-            
+
             return false;
           }
         }
@@ -1266,40 +968,53 @@ public final class ChatOperationProtos {
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                com.google.protobuf.UnknownFieldSet.newBuilder(
+                        this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                      extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder subBuilder = pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addState(subBuilder.buildPartial());
+              break;
+            }
           }
         }
-        return this;
       }
+
       private int bitField0_;
 
       // repeated .ChatAction state = 1;
       private java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> state_ =
-        java.util.Collections.emptyList();
+              java.util.Collections.emptyList();
       private void ensureStateIsMutable() {
         if (!((bitField0_ & 0x00000001) == 0x00000001)) {
           state_ = new java.util.ArrayList<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction>(state_);
           bitField0_ |= 0x00000001;
-         }
+        }
       }
 
       private com.google.protobuf.RepeatedFieldBuilder<
-          pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> stateBuilder_;
+              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> stateBuilder_;
 
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> getStateList() {
         if (stateBuilder_ == null) {
           return java.util.Collections.unmodifiableList(state_);
@@ -1307,9 +1022,6 @@ public final class ChatOperationProtos {
           return stateBuilder_.getMessageList();
         }
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public int getStateCount() {
         if (stateBuilder_ == null) {
           return state_.size();
@@ -1317,9 +1029,6 @@ public final class ChatOperationProtos {
           return stateBuilder_.getCount();
         }
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction getState(int index) {
         if (stateBuilder_ == null) {
           return state_.get(index);
@@ -1327,11 +1036,8 @@ public final class ChatOperationProtos {
           return stateBuilder_.getMessage(index);
         }
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder setState(
-          int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction value) {
+              int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction value) {
         if (stateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1344,11 +1050,8 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder setState(
-          int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
+              int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
         if (stateBuilder_ == null) {
           ensureStateIsMutable();
           state_.set(index, builderForValue.build());
@@ -1358,9 +1061,6 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder addState(pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction value) {
         if (stateBuilder_ == null) {
           if (value == null) {
@@ -1374,11 +1074,8 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder addState(
-          int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction value) {
+              int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction value) {
         if (stateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1391,11 +1088,8 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder addState(
-          pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
+              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
         if (stateBuilder_ == null) {
           ensureStateIsMutable();
           state_.add(builderForValue.build());
@@ -1405,11 +1099,8 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder addState(
-          int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
+              int index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder builderForValue) {
         if (stateBuilder_ == null) {
           ensureStateIsMutable();
           state_.add(index, builderForValue.build());
@@ -1419,11 +1110,8 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder addAllState(
-          java.lang.Iterable<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> values) {
+              java.lang.Iterable<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction> values) {
         if (stateBuilder_ == null) {
           ensureStateIsMutable();
           super.addAll(values, state_);
@@ -1433,9 +1121,6 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder clearState() {
         if (stateBuilder_ == null) {
           state_ = java.util.Collections.emptyList();
@@ -1446,9 +1131,6 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public Builder removeState(int index) {
         if (stateBuilder_ == null) {
           ensureStateIsMutable();
@@ -1459,62 +1141,44 @@ public final class ChatOperationProtos {
         }
         return this;
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder getStateBuilder(
-          int index) {
+              int index) {
         return getStateFieldBuilder().getBuilder(index);
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder getStateOrBuilder(
-          int index) {
+              int index) {
         if (stateBuilder_ == null) {
           return state_.get(index);  } else {
           return stateBuilder_.getMessageOrBuilder(index);
         }
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
-      public java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> 
-           getStateOrBuilderList() {
+      public java.util.List<? extends pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>
+      getStateOrBuilderList() {
         if (stateBuilder_ != null) {
           return stateBuilder_.getMessageOrBuilderList();
         } else {
           return java.util.Collections.unmodifiableList(state_);
         }
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder addStateBuilder() {
         return getStateFieldBuilder().addBuilder(
-            pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDefaultInstance());
+                pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDefaultInstance());
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder addStateBuilder(
-          int index) {
+              int index) {
         return getStateFieldBuilder().addBuilder(
-            index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDefaultInstance());
+                index, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.getDefaultInstance());
       }
-      /**
-       * <code>repeated .ChatAction state = 1;</code>
-       */
-      public java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder> 
-           getStateBuilderList() {
+      public java.util.List<pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder>
+      getStateBuilderList() {
         return getStateFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilder<
-          pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder> 
-          getStateFieldBuilder() {
+              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>
+      getStateFieldBuilder() {
         if (stateBuilder_ == null) {
           stateBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>(
+                  pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatActionOrBuilder>(
                   state_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
@@ -1536,39 +1200,20 @@ public final class ChatOperationProtos {
   }
 
   public interface ChatMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
+          extends com.google.protobuf.MessageOrBuilder {
 
     // required string message = 1;
-    /**
-     * <code>required string message = 1;</code>
-     */
     boolean hasMessage();
-    /**
-     * <code>required string message = 1;</code>
-     */
-    java.lang.String getMessage();
-    /**
-     * <code>required string message = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getMessageBytes();
+    String getMessage();
   }
-  /**
-   * Protobuf type {@code ChatMessage}
-   *
-   * <pre>
-   * wiadomosci wysylane na poszczegolnych kanalach
-   * </pre>
-   */
   public static final class ChatMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements ChatMessageOrBuilder {
+          com.google.protobuf.GeneratedMessage
+          implements ChatMessageOrBuilder {
     // Use ChatMessage.newBuilder() to construct.
-    private ChatMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ChatMessage(Builder builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ChatMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private ChatMessage(boolean noInit) {}
 
     private static final ChatMessage defaultInstance;
     public static ChatMessage getDefaultInstance() {
@@ -1579,116 +1224,42 @@ public final class ChatOperationProtos {
       return defaultInstance;
     }
 
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ChatMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              message_ = input.readBytes();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
     public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
+    getDescriptor() {
       return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ChatMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ChatMessage>() {
-      public ChatMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ChatMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ChatMessage> getParserForType() {
-      return PARSER;
+    internalGetFieldAccessorTable() {
+      return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_fieldAccessorTable;
     }
 
     private int bitField0_;
     // required string message = 1;
     public static final int MESSAGE_FIELD_NUMBER = 1;
     private java.lang.Object message_;
-    /**
-     * <code>required string message = 1;</code>
-     */
     public boolean hasMessage() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    /**
-     * <code>required string message = 1;</code>
-     */
-    public java.lang.String getMessage() {
+    public String getMessage() {
       java.lang.Object ref = message_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
+        com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
           message_ = s;
         }
         return s;
       }
     }
-    /**
-     * <code>required string message = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getMessageBytes() {
+    private com.google.protobuf.ByteString getMessageBytes() {
       java.lang.Object ref = message_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+                com.google.protobuf.ByteString.copyFromUtf8((String) ref);
         message_ = b;
         return b;
       } else {
@@ -1713,7 +1284,7 @@ public final class ChatOperationProtos {
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
+            throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getMessageBytes());
@@ -1729,7 +1300,7 @@ public final class ChatOperationProtos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getMessageBytes());
+                .computeBytesSize(1, getMessageBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1739,61 +1310,75 @@ public final class ChatOperationProtos {
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
+            throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
 
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
     }
     public static pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+              .buildParsed();
     }
 
     public static Builder newBuilder() { return Builder.create(); }
@@ -1805,30 +1390,21 @@ public final class ChatOperationProtos {
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
-    /**
-     * Protobuf type {@code ChatMessage}
-     *
-     * <pre>
-     * wiadomosci wysylane na poszczegolnych kanalach
-     * </pre>
-     */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessageOrBuilder {
+            com.google.protobuf.GeneratedMessage.Builder<Builder>
+            implements pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
+      getDescriptor() {
         return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.class, pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.Builder.class);
+      internalGetFieldAccessorTable() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_fieldAccessorTable;
       }
 
       // Construct using pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.newBuilder()
@@ -1836,8 +1412,7 @@ public final class ChatOperationProtos {
         maybeForceBuilderInitialization();
       }
 
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      private Builder(BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1861,8 +1436,8 @@ public final class ChatOperationProtos {
       }
 
       public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.internal_static_ChatMessage_descriptor;
+      getDescriptorForType() {
+        return pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.getDescriptor();
       }
 
       public pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage getDefaultInstanceForType() {
@@ -1873,6 +1448,16 @@ public final class ChatOperationProtos {
         pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      private pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage buildParsed()
+              throws com.google.protobuf.InvalidProtocolBufferException {
+        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(
+                  result).asInvalidProtocolBufferException();
         }
         return result;
       }
@@ -1902,9 +1487,7 @@ public final class ChatOperationProtos {
       public Builder mergeFrom(pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage other) {
         if (other == pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.getDefaultInstance()) return this;
         if (other.hasMessage()) {
-          bitField0_ |= 0x00000001;
-          message_ = other.message_;
-          onChanged();
+          setMessage(other.getMessage());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1912,103 +1495,80 @@ public final class ChatOperationProtos {
 
       public final boolean isInitialized() {
         if (!hasMessage()) {
-          
+
           return false;
         }
         return true;
       }
 
       public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+                com.google.protobuf.UnknownFieldSet.newBuilder(
+                        this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              onChanged();
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                      extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                onChanged();
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              message_ = input.readBytes();
+              break;
+            }
           }
         }
-        return this;
       }
+
       private int bitField0_;
 
       // required string message = 1;
       private java.lang.Object message_ = "";
-      /**
-       * <code>required string message = 1;</code>
-       */
       public boolean hasMessage() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      /**
-       * <code>required string message = 1;</code>
-       */
-      public java.lang.String getMessage() {
+      public String getMessage() {
         java.lang.Object ref = message_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
           message_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
-      /**
-       * <code>required string message = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getMessageBytes() {
-        java.lang.Object ref = message_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          message_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string message = 1;</code>
-       */
-      public Builder setMessage(
-          java.lang.String value) {
+      public Builder setMessage(String value) {
         if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000001;
         message_ = value;
         onChanged();
         return this;
       }
-      /**
-       * <code>required string message = 1;</code>
-       */
       public Builder clearMessage() {
         bitField0_ = (bitField0_ & ~0x00000001);
         message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
-      /**
-       * <code>required string message = 1;</code>
-       */
-      public Builder setMessageBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      void setMessage(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000001;
         message_ = value;
         onChanged();
-        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:ChatMessage)
@@ -2023,67 +1583,73 @@ public final class ChatOperationProtos {
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ChatAction_descriptor;
+          internal_static_ChatAction_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ChatAction_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_ChatAction_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ChatState_descriptor;
+          internal_static_ChatState_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ChatState_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_ChatState_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_ChatMessage_descriptor;
+          internal_static_ChatMessage_descriptor;
   private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_ChatMessage_fieldAccessorTable;
+  com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internal_static_ChatMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
+  getDescriptor() {
     return descriptor;
   }
   private static com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
+          descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nchat.proto\"z\n\nChatAction\022&\n\006action\030\001 \002" +
-      "(\0162\026.ChatAction.ActionType\022\017\n\007channel\030\002 " +
-      "\002(\t\022\020\n\010nickname\030\003 \002(\t\"!\n\nActionType\022\010\n\004J" +
-      "OIN\020\000\022\t\n\005LEAVE\020\001\"\'\n\tChatState\022\032\n\005state\030\001" +
-      " \003(\0132\013.ChatAction\"\036\n\013ChatMessage\022\017\n\007mess" +
-      "age\030\001 \002(\tB5\n\036pl.edu.agh.dsrg.sr.chat.pro" +
-      "tosB\023ChatOperationProtos"
+            "\n\nchat.proto\"z\n\nChatAction\022&\n\006action\030\001 \002" +
+                    "(\0162\026.ChatAction.ActionType\022\017\n\007channel\030\002 " +
+                    "\002(\t\022\020\n\010nickname\030\003 \002(\t\"!\n\nActionType\022\010\n\004J" +
+                    "OIN\020\000\022\t\n\005LEAVE\020\001\"\'\n\tChatState\022\032\n\005state\030\001" +
+                    " \003(\0132\013.ChatAction\"\036\n\013ChatMessage\022\017\n\007mess" +
+                    "age\030\001 \002(\tB5\n\036pl.edu.agh.dsrg.sr.chat.pro" +
+                    "tosB\023ChatOperationProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-      new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_ChatAction_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_ChatAction_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ChatAction_descriptor,
-              new java.lang.String[] { "Action", "Channel", "Nickname", });
-          internal_static_ChatState_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_ChatState_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ChatState_descriptor,
-              new java.lang.String[] { "State", });
-          internal_static_ChatMessage_descriptor =
-            getDescriptor().getMessageTypes().get(2);
-          internal_static_ChatMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_ChatMessage_descriptor,
-              new java.lang.String[] { "Message", });
-          return null;
-        }
-      };
+            new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+              public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                      com.google.protobuf.Descriptors.FileDescriptor root) {
+                descriptor = root;
+                internal_static_ChatAction_descriptor =
+                        getDescriptor().getMessageTypes().get(0);
+                internal_static_ChatAction_fieldAccessorTable = new
+                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                        internal_static_ChatAction_descriptor,
+                        new java.lang.String[] { "Action", "Channel", "Nickname", },
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.class,
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatAction.Builder.class);
+                internal_static_ChatState_descriptor =
+                        getDescriptor().getMessageTypes().get(1);
+                internal_static_ChatState_fieldAccessorTable = new
+                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                        internal_static_ChatState_descriptor,
+                        new java.lang.String[] { "State", },
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.class,
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatState.Builder.class);
+                internal_static_ChatMessage_descriptor =
+                        getDescriptor().getMessageTypes().get(2);
+                internal_static_ChatMessage_fieldAccessorTable = new
+                        com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                        internal_static_ChatMessage_descriptor,
+                        new java.lang.String[] { "Message", },
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.class,
+                        pl.edu.agh.dsrg.sr.chat.protos.ChatOperationProtos.ChatMessage.Builder.class);
+                return null;
+              }
+            };
     com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
+            .internalBuildGeneratedFileFrom(descriptorData,
+                    new com.google.protobuf.Descriptors.FileDescriptor[] {
+                    }, assigner);
   }
 
   // @@protoc_insertion_point(outer_class_scope)
