@@ -21,7 +21,7 @@ public class SimpleChat {
         stack.addProtocol(new UDP().setValue("bind_addr",
                 InetAddress.getByName("192.168.0.5")))
                 .addProtocol(new PING())
-                .addProtocol(new MERGE3())
+//                .addProtocol(new MERGE3())
                 .addProtocol(new FD_SOCK())
                 .addProtocol(new FD_ALL().setValue("timeout", 12000)
                         .setValue("interval", 3000))
