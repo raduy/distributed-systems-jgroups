@@ -12,5 +12,5 @@ Generate classess:
 
 1. Go to /src/main/java
 2. Add required jars here
-3. Run: javac -Xlint:deprecation -cp .:jgroups-3.6.2.Final.jar:protobuf-java-2.6.1.jar pl/edu/agh/dsrg/sr/chat/*/*.java
-4. Run java -Djava.net.preferIPv4Stack=true -cp jgroups-3.6.2.Final.jar:protobuf-java-2.6.1.jar:. pl.edu.agh.dsrg.sr.chat.ChatApp
+3. Run: javac -Xlint:deprecation -cp .:jgroups-3.0.10.Final.jar:protobuf-java-2.4.1.jar pl/edu/agh/dsrg/sr/chat/*/*.java
+4. Run java -Djava.net.preferIPv4Stack=true -cp jgroups-3.0.10.Final.jar:protobuf-java-2.4.1.jar:. pl.edu.agh.dsrg.sr.chat.ChatApp
