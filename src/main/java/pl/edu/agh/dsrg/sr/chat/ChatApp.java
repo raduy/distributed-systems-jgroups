@@ -39,6 +39,7 @@ public class ChatApp {
         System.out.printf("Hello %s! \nLoading...\n", nickName);
 
         initApp();
+        System.out.printf("Done! Here are your options:\n");
         CommandRouter.printAvailableCommands();
         chatMode();
     }
@@ -49,7 +50,6 @@ public class ChatApp {
         channelsService = new ChannelsService(nickName, channelRepository, channelFactory);
 
         channelsService.connectToManagementChannel();
-        System.out.printf("Done! Here are your options:\n");
         router = new CommandRouter(channelsService, channelRepository, channelFactory);
     }
 
@@ -85,7 +85,8 @@ public class ChatApp {
 
             if (chatChannel != null && chatChannel.getJChannel() != null) {
                 try {
-                    ChatOperationProtos.ChatMessage message = ChatOperationProtos.ChatMessage.newBuilder()
+                    ChatOperationProtos.ChatMessage message = ChatOperationProtos.ChatMessage
+                            .newBuilder()
                             .setMessage(userInput)
                             .build();
 
